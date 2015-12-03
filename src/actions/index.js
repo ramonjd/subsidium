@@ -41,12 +41,39 @@ function error(data) {
   }
 }
 
-export function fetchUsers() {
-  console.log(urls.USERS_API_URL)
+export function getUsers() {
   return dispatch => {
     return request
       .get(urls.USERS_API_URL)
-      .then(res => dispatch(setUsers(res.body)))
+      .then(res => dispatch(setUsers(res.data)))
+      .catch(err => dispatch(error(err)))
+  }
+}
+
+
+export function createUser(data) {
+  return dispatch => {
+    return request
+      .post(urls.USERS_API_URL, data)
+      .then(res => dispatch(setUsers(res.data)))
+      .catch(err => dispatch(error(err)))
+  }
+}
+
+export function editUser(id) {
+  return dispatch => {
+    return request
+      .put(urls.USERS_API_URL, {id : id})
+      .then(res => dispatch(setUsers(res.data)))
+      .catch(err => dispatch(error(err)))
+  }
+}
+
+export function deleteUser() {
+  return dispatch => {
+    return request
+      .delete(urls.USERS_API_URL, {id : id})
+      .then(res => dispatch(setUsers(res.data)))
       .catch(err => dispatch(error(err)))
   }
 }

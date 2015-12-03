@@ -31,8 +31,7 @@ function mockStore(getState, expectedActions, done) {
         const expectedAction = expectedActions.shift()
 
         try {
-          console.log(action);
-          expect(action).to.equal(expectedAction)
+          expect(action).to.deep.equal(expectedAction)
           if (done && !expectedActions.length) {
             done()
           }
@@ -51,9 +50,9 @@ function mockStore(getState, expectedActions, done) {
   return mockStoreWithMiddleware()
 }
 
-describe('async actions', () => {
+describe('actions', () => {
 
-
+describe('users', () => {
 
   afterEach(() => {
     nock.cleanAll()
@@ -79,7 +78,13 @@ describe('async actions', () => {
       { type: types.SET_USERS, data: usersArray }
     ]
     const store = mockStore({ users: [] }, expectedActions, done)
-    store.dispatch(actions.fetchUsers())
+    store.dispatch(actions.getUsers())
+
+    })
+
+
+
+
 
   })
 })
