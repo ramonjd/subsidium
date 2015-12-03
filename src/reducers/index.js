@@ -4,11 +4,9 @@
 import Immutable from 'seamless-immutable'
 import {types} from '../constants/'
 
-
-
 const initialState = Immutable([])
 
-export function userReducer(currentState = initialState, action = {}) {
+export function users(currentState = initialState, action = {}) {
 
   switch(action.type) {
 

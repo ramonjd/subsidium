@@ -1,6 +1,9 @@
 import {expect, assert} from 'chai'
 import Immutable from 'seamless-immutable'
-import {userReducer} from '../src/reducers/'
+import {users as userReducer} from '../src/reducers/'
+import {types} from '../src/constants/'
+
+
 
 describe('reducers', () => {
 
@@ -21,7 +24,7 @@ describe('reducers', () => {
       const state = Immutable([])
 
       let nextState = userReducer(state, {
-        type : 'SET_USERS',
+        type : types.SET_USERS,
         data : usersArray
       })
 
@@ -35,7 +38,7 @@ describe('reducers', () => {
         const state = Immutable(usersArray)
 
         let nextState = userReducer(state, {
-          type : 'CREATE_USER',
+          type : types.CREATE_USER,
           data : {
             username : 'Slob',
             id : 2
@@ -65,7 +68,7 @@ describe('reducers', () => {
        const state = Immutable(usersArray)
 
        let nextState = userReducer(state, {
-         type : 'EDIT_USER',
+         type : types.EDIT_USER,
          id : 1,
          data : {
            username : 'Slobbr'
@@ -90,7 +93,7 @@ describe('reducers', () => {
        const state = Immutable(usersArray)
 
        let nextState = userReducer(state, {
-         type : 'DELETE_USER',
+         type : types.DELETE_USER,
          id : 0
        })
        assert.isTrue( Immutable.isImmutable(nextState))

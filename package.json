@@ -25,6 +25,7 @@
     "nock": "^3.3.2"
   },
   "dependencies": {
+    "axios": "^0.7.0",
     "isomorphic-fetch": "^2.2.0",
     "redux": "^3.0.4",
     "redux-thunk": "^1.0.0",

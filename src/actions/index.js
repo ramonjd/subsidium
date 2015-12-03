@@ -1,7 +1,7 @@
 
-import fetch from 'isomorphic-fetch'
+import request from 'axios'
+import {urls} from '../constants/'
 
-const USERS_API_URL = '/api/users'
 
 // ACTIONS FOR WAITING AND SUCCESS
 // https://github.com/rackt/redux/issues/99
@@ -43,9 +43,9 @@ function error(data) {
 
 export function fetchUsers() {
   return dispatch => {
-    return fetch(USERS_API_URL)
-      .then(res => res.json())
-      .then(json => dispatch(setUsers(json.body)))
+    return request
+      .get(urls.USERS_API_URL)
+      .then(res => dispatch(setUsers(res.body)))
       .catch(err => dispatch(error(err)))
   }
 }
