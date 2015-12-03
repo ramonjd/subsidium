@@ -1,14 +1,10 @@
-import {List, Map, fromJS} from 'immutable'
 import {expect, assert} from 'chai'
 import Immutable from 'seamless-immutable'
-
-
-import userReducer from '../src/reducers/users'
+import {userReducer} from '../src/reducers/'
 
 describe('reducers', () => {
 
   describe('users', () => {
-
 
     const usersArray =  [
       {
@@ -20,7 +16,6 @@ describe('reducers', () => {
         id : 1
       }
     ]
-
 
     it('sets users array to the state for SET_USERS', () => {
       const state = Immutable([])
@@ -89,8 +84,6 @@ describe('reducers', () => {
          }
        ])
      })
-
-
 
      it('delete user in users for DELETE_USERS', () => {
 
