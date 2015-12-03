@@ -31,6 +31,7 @@ function mockStore(getState, expectedActions, done) {
         const expectedAction = expectedActions.shift()
 
         try {
+          console.log(action);
           expect(action).to.equal(expectedAction)
           if (done && !expectedActions.length) {
             done()
@@ -52,16 +53,6 @@ function mockStore(getState, expectedActions, done) {
 
 describe('async actions', () => {
 
-  const usersArray =  [
-    {
-      username : 'Fred',
-      id : 0
-    },
-    {
-      username : 'Bob',
-      id : 1
-    }
-  ]
 
 
   afterEach(() => {
@@ -70,8 +61,18 @@ describe('async actions', () => {
 
   it('creates FETCH_TODOS_SUCCESS when fetching todos has been done', (done) => {
 
+      let usersArray =  [
+        {
+          username : 'Fred',
+          id : 0
+        },
+        {
+          username : 'Bob',
+          id : 1
+        }
+      ]
     nock('http://localhost:3000')
-      .get(urls.USERS_API_URL)
+      .get('/api/users')
       .reply(200, usersArray)
 
     const expectedActions = [
@@ -79,6 +80,6 @@ describe('async actions', () => {
     ]
     const store = mockStore({ users: [] }, expectedActions, done)
     store.dispatch(actions.fetchUsers())
-    
+
   })
 })

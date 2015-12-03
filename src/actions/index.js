@@ -42,6 +42,7 @@ function error(data) {
 }
 
 export function fetchUsers() {
+  console.log(urls.USERS_API_URL)
   return dispatch => {
     return request
       .get(urls.USERS_API_URL)
