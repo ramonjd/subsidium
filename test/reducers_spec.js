@@ -68,7 +68,7 @@ describe('reducers', () => {
        const state = Immutable(usersArray)
 
        let nextState = userReducer(state, {
-         type : types.EDIT_USER,
+         type : types.UPDATE_USER,
          id : 1,
          data : {
            username : 'Slobbr'

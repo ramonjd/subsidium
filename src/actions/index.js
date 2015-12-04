@@ -24,7 +24,7 @@ function makeUser(data) {
 }
 function editUser(id, data) {
   return {
-    type: types.EDIT_USER,
+    type: types.UPDATE_USER,
     id,
     data
   }

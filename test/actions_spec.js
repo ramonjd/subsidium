@@ -123,7 +123,7 @@ describe('users', () => {
           .reply(200, updatedUser)
 
         expectedActions = [
-          { type: 'EDIT_USER', id : 0, data : updatedUser }
+          { type: 'UPDATE_USER', id : 0, data : updatedUser }
         ]
         store = mockStore({ users: [] }, expectedActions, done)
 

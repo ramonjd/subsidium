@@ -68,7 +68,7 @@ describe('store', () => {
         })
 
         store.dispatch({
-          type: types.EDIT_USER,
+          type: types.UPDATE_USER,
           id: 1,
           data : {
             username : 'Nobby'

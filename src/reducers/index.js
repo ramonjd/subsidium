@@ -16,7 +16,7 @@ export function users(currentState = initialState, action = {}) {
     case types.CREATE_USER:
       return Immutable(currentState).concat([action.data])
 
-    case types.EDIT_USER:
+    case types.UPDATE_USER:
       return Immutable(currentState).map(function(obj, index) {
         if (index === action.id) {
           let mutableObject = obj.asMutable()
