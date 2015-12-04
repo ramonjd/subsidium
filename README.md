@@ -18,6 +18,7 @@ $ npm run test
 ## Reference materials
 
 ## redux
+http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html
 https://github.com/jchapron/redux-friendlist-demo/blob/v1.0/src/containers/FriendListApp.js
 https://github.com/happypoulp/redux-tutorial/wiki/10.-Middleware
 
