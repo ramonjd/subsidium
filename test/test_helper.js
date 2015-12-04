@@ -1,5 +1,4 @@
 import chai from 'chai'
-import chaiImmutable from 'chai-immutable'
 import jsdom from 'jsdom';
 
 
@@ -14,5 +13,3 @@ Object.keys(window).forEach((key) => {
     global[key] = window[key];
   }
 });
-
-chai.use(chaiImmutable)

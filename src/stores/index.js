@@ -1,18 +1,37 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux'
+// https://github.com/KyperTech/webpack-redux-react-starter/blob/master/app/store/configureStore.js
+
+import { createStore, applyMiddleware, compose } from 'redux'
 
 import thunk from 'redux-thunk'
 
-import * as reducers from '../reducers/'
+import rootReducer from '../reducers/'
 
-// The data parameter that we see here is used to initialize our redux store with data. We didn't
-// talk about this yet for simplicity but thanks to it your reducers can be initialized
-// with real data if you already have some. For example in an isomorphic/universal app where you
-// fetch data server-side, serialize and pass it to the client, your Redux store can be
-// initialized with that data.
-// We're not passing any data here but it's good to know about this createStore's ability.
-export default function(initialState) {
-  let reducer = combineReducers(reducers)
-  let createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
-  let store = createStoreWithMiddleware(reducer, initialState)
+import routes from '../routes/'
+
+export default function configureStore(initialState, reduxReactRouter, createHistory) {
+  const createStoreWithMiddleware = compose(
+    applyMiddleware(thunk),
+    reduxReactRouter({
+      routes,
+      createHistory
+    })
+  )(createStore)
+  const store = createStoreWithMiddleware(rootReducer, initialState)
+
+  if (module.hot) {
+    // Enable Webpack hot module replacement for reducers
+    module.hot.accept('../reducers/', () => {
+      const nextRootReducer = require('../reducers/')
+      store.replaceReducer(nextRootReducer)
+    })
+  }
+
   return store
 }
+
+// export default function(initialState, reduxReactRouter, createHistory) {
+//   let reducer = combineReducers(reducers)
+//   let createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
+//   let store = createStoreWithMiddleware(reducer, initialState)
+//   return store
+// }

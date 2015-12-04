@@ -1,26 +1,34 @@
+// https://github.com/KyperTech/webpack-redux-react-starter/blob/master/app/client.js
+// import React from 'react'
+// import { render }           from 'react-dom'
+// import { Router }           from 'react-router'
+// import createBrowserHistory from 'history/lib/createBrowserHistory'
+// import * as reducers        from '../reducers/'
+// import routes               from '../routes/'
+// import Immutable from 'seamless-immutable'
+
+
 import React from 'react'
-import { render }           from 'react-dom'
-import { Router }           from 'react-router'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
-import { Provider }         from 'react-redux'
-import * as reducers        from '../reducers/'
-import routes               from '../routes/'
-import Immutable from 'seamless-immutable'
-import makeStore from '../stores/'
+import {render} from 'react-dom'
+import { reduxReactRouter } from 'redux-router'
+import createHistory from 'history/lib/createBrowserHistory'
+import configureStore from '../stores/'
+import Root from '../containers/Root'
 
 window.debug = require('debug')
 const debug = window.debug('subsidium')
 //const initialState = immutifyState(window.__INITIAL_STATE__)
-const history = createBrowserHistory()
+const initialState = window.__INITIAL_STATE__ || {
+  users : [{
+    username : 'bob'
+  }],
+  router : {}
+}
+const store = configureStore(initialState, reduxReactRouter, createHistory)
 
 
-//const store   = applyMiddleware(promiseMiddleware)(createStore)(reducer, initialState)
-const store   = makeStore()
+let rootElement = document.getElementById('content')
 
 render(
-  <Provider store={store}>
-    <Router children={routes} history={history} />
-  </Provider>,
-  document.getElementById('content')
-
+  <Root store={ store } />, rootElement
 )

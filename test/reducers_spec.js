@@ -1,8 +1,7 @@
 import {expect, assert} from 'chai'
 import Immutable from 'seamless-immutable'
-import {users as userReducer} from '../src/reducers/'
+import userReducer from '../src/reducers/users'
 import {types} from '../src/constants/'
-
 
 
 describe('reducers', () => {
