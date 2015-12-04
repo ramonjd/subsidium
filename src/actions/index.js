@@ -1,6 +1,6 @@
 
 import request from 'axios'
-import {urls} from '../constants/'
+import {urls, types} from '../constants/'
 
 
 // ACTIONS FOR WAITING AND SUCCESS
@@ -10,27 +10,28 @@ import {urls} from '../constants/'
 
 function setUsers(data) {
   return {
-    type: 'SET_USERS',
+    type: types.SET_USERS,
     data
   }
 }
 
-function createUser(data) {
+function makeUser(data) {
+
   return {
-    type: 'CREATE_USER',
+    type: types.CREATE_USER,
     data
   }
 }
 function editUser(id, data) {
   return {
-    type: 'EDIT_USER',
+    type: types.EDIT_USER,
     id,
     data
   }
 }
-function deleteUser(id) {
+function removeUser(id) {
   return {
-    type: 'DELETE_USER',
+    type: types.DELETE_USER,
     id
   }
 }
@@ -55,25 +56,25 @@ export function createUser(data) {
   return dispatch => {
     return request
       .post(urls.USERS_API_URL, data)
-      .then(res => dispatch(setUsers(res.data)))
+      .then(res => dispatch(makeUser(res.data)))
       .catch(err => dispatch(error(err)))
   }
 }
 
-export function editUser(id) {
+export function updateUser(userId, data) {
   return dispatch => {
     return request
-      .put(urls.USERS_API_URL, {id : id})
-      .then(res => dispatch(setUsers(res.data)))
+      .put(urls.USERS_API_URL, {id : userId, data : data})
+      .then(res => dispatch(editUser(userId, res.data)))
       .catch(err => dispatch(error(err)))
   }
 }
 
-export function deleteUser() {
+export function deleteUser(userId) {
   return dispatch => {
     return request
-      .delete(urls.USERS_API_URL, {id : id})
-      .then(res => dispatch(setUsers(res.data)))
+      .delete(urls.USERS_API_URL + '/' + userId)
+      .then(res => dispatch(removeUser(userId)))
       .catch(err => dispatch(error(err)))
   }
 }

@@ -1,1 +1,2 @@
-export const USERS_API_URL = 'http://localhost:3000/api/users'
+// dev vs prod config
+export const USERS_API_URL = 'http://localhost:8888/api/users'

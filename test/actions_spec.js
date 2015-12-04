@@ -50,7 +50,12 @@ function mockStore(getState, expectedActions, done) {
   return mockStoreWithMiddleware()
 }
 
+
+
 describe('actions', () => {
+
+let expectedActions
+let store
 
 describe('users', () => {
 
@@ -58,33 +63,91 @@ describe('users', () => {
     nock.cleanAll()
   })
 
-  it('creates FETCH_TODOS_SUCCESS when fetching todos has been done', (done) => {
 
-      let usersArray =  [
-        {
-          username : 'Fred',
-          id : 0
-        },
-        {
-          username : 'Bob',
-          id : 1
-        }
-      ]
-    nock('http://localhost:3000')
+
+  it('creates SET_USERS after gettings users', (done) => {
+
+    let usersArray =  [
+      {
+        username : 'Fred',
+        id : 0
+      },
+      {
+        username : 'Bob',
+        id : 1
+      }
+    ]
+    nock('http://localhost:8888')
       .get('/api/users')
       .reply(200, usersArray)
 
-    const expectedActions = [
-      { type: types.SET_USERS, data: usersArray }
+    expectedActions = [
+      { type: 'SET_USERS', data: usersArray }
     ]
-    const store = mockStore({ users: [] }, expectedActions, done)
+    store = mockStore({ users: [] }, expectedActions, done)
     store.dispatch(actions.getUsers())
 
     })
 
 
+    it('creates CREATE_USER after creating users', (done) => {
+
+      let newUser =  {
+        username : 'N00b',
+        id : 0
+      }
+
+      nock('http://localhost:8888')
+        .post('/api/users', newUser)
+        .reply(201, newUser)
+
+      expectedActions = [
+        { type: 'CREATE_USER', data: newUser }
+      ]
+      store = mockStore({ users: [] }, expectedActions, done)
+
+       store.dispatch(actions.createUser(newUser))
+
+      })
 
 
+      it('creates EDIT_USER after editing a user', (done) => {
 
+        let updatedUser =  {
+          username : 'N00berlicious',
+          id : 0
+        }
+
+        nock('http://localhost:8888')
+          .put('/api/users', {id : 0, data : updatedUser})
+          .reply(200, updatedUser)
+
+        expectedActions = [
+          { type: 'EDIT_USER', id : 0, data : updatedUser }
+        ]
+        store = mockStore({ users: [] }, expectedActions, done)
+
+        store.dispatch(actions.updateUser(0, updatedUser))
+
+      })
+
+        it('creates DELETE_USER after deleting a user', (done) => {
+
+
+          nock('http://localhost:8888')
+            .delete('/api/users/0')
+            .reply(200)
+
+          expectedActions = [
+            {
+              type: 'DELETE_USER',
+              id : 0
+            }
+          ]
+          store = mockStore({ users: [] }, expectedActions, done)
+
+          store.dispatch(actions.deleteUser(0))
+
+        })
   })
 })
