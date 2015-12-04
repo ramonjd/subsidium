@@ -20,6 +20,9 @@ $ npm run test
 ## redux
 https://github.com/jchapron/redux-friendlist-demo/blob/v1.0/src/containers/FriendListApp.js
 https://github.com/happypoulp/redux-tutorial/wiki/10.-Middleware
+
+## testing
+https://github.com/jesstelford/react-testing-mocha-jsdom
 https://github.com/rackt/redux/blob/master/docs/recipes/WritingTests.md
 
 ## mongod
