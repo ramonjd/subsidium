@@ -9,11 +9,9 @@ class Root extends Component {
   }
   render() {
     return (
-      <div>
         <Provider store={this.props.store}>
           <App />
         </Provider>
-      </div>
     )
   }
 }

@@ -1,7 +1,7 @@
-// if (process.env.BROWSER) {
-//   require('../styles/App.scss')
-// }
 
+if (process.env.BROWSER) {
+  require('../styles/App.scss')
+}
 
 import React, { Component } from 'react'
 import { ReduxRouter } from 'redux-router'

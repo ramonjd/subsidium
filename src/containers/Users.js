@@ -1,4 +1,4 @@
-//https://github.com/jchapron/redux-friendlist-demo/blob/v1.0/src/containers/FriendListApp.js
+//https://github.com/KyperTech/webpack-redux-react-starter/blob/master/app/components/Main.js
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -18,14 +18,9 @@ import * as UserActions from '../actions/'
 // @connect(mapStateToProps, mapDispatchToProps)
 class Users extends Component {
 
-  // static propTypes = {
-  //   users: PropTypes.array
-  // }
-
   static propTypes = {
-     users:    PropTypes.arrayOf(PropTypes.shape({
-       username: PropTypes.string.isRequired,
-    })).isRequired
+     users:  PropTypes.array,
+     actions : PropTypes.object
    }
 
   constructor() {
