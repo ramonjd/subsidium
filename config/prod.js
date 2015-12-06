@@ -1,6 +1,5 @@
 
-const config = {
-  database: 'mongodb://localhost/shorteststraw'
-};
-
-export default config;
+export const config = {
+  database: 'mongodb://localhost/shorteststraw',
+  baseUrl : 'http://localhost:8888'
+}

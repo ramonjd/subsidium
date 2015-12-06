@@ -7,6 +7,7 @@ const UsersController  = {
       if (!err) {
         res.json(users);
       } else {
+        res.json(500, err);
         console.log('Error UsersController:all');
       }
     });

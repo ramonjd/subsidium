@@ -28,7 +28,6 @@ const initialState = window.__INITIAL_STATE__ || {
 }
 const store = configureStore(initialState, reduxReactRouter, createHistory)
 
-
 let rootElement = document.getElementById('content')
 
 render(

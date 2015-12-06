@@ -31,8 +31,8 @@ class Users extends Component {
     const {users, actions} = this.props;
     return (
       <section className="Users">
-      <h2>Users</h2>
-      <UsersView users={ users } actions={ actions }/>
+        <h2>Users</h2>
+        <UsersView users={ users } actions={ actions } />
      </section>
     )
   }
@@ -46,7 +46,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {actions : bindActionCreators(UserActions, dispatch)}
+  return { actions : bindActionCreators(UserActions, dispatch) }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users)

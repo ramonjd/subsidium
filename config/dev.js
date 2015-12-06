@@ -1,5 +1,5 @@
 
 export const config = {
-  database: 'mongodb://localhost/shorteststraw',
-  baseUrl : 'http://localhost:3001',
-};
+  database: 'mongodb://localhost/subsidium',
+  baseUrl : 'http://localhost:8888'
+}
