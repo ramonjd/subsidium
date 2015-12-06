@@ -1,6 +1,5 @@
 //https://github.com/jchapron/redux-friendlist-demo/blob/v1.0/src/containers/FriendListApp.js
 import React, { Component, PropTypes } from 'react'
-
 export default class UsersView extends Component {
 
   static propTypes = {

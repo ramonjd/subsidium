@@ -1,4 +1,3 @@
-
 if (process.env.BROWSER) {
   require('../styles/App.scss')
 }

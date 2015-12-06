@@ -2,8 +2,9 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import UsersView from '../components/UsersView'
 import * as UserActions from '../actions/'
+import UsersView from '../components/UsersView'
+import UsersCreate from '../components/UsersCreate'
 
 // function mapStateToProps(state) {
 //   console.log('statesss', state)
@@ -31,8 +32,9 @@ class Users extends Component {
     const {users, actions} = this.props;
     return (
       <section className="Users">
-        <h2>Users</h2>
+        <h1>Users</h1>
         <UsersView users={ users } actions={ actions } />
+        <UsersCreate createUser={ actions.createUser } />
      </section>
     )
   }

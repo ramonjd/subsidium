@@ -51,8 +51,8 @@ export function getUsers() {
   }
 }
 
-
 export function createUser(data) {
+  console.log('createUser', data)
   return dispatch => {
     return request
       .post(urls.USERS_API_URL, data)
