@@ -12,6 +12,10 @@ class UserProfile extends Component {
     super(props)
     this.getUserById = this.getUserById.bind(this)
   }
+  // 
+  // componentWillMount() {
+  //     this.props.actions.getUserById()
+  // }
 
   getUserById(id) {
     return Immutable(this.props.users).asMutable().map((user, i) => {
