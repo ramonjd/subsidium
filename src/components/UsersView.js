@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Immutable from 'seamless-immutable'
+import { Link } from 'react-router'
 
 export default class UsersView extends Component {
 
@@ -16,9 +17,9 @@ export default class UsersView extends Component {
 
   render () {
 
-    const { users, actions } = this.props;
+    const { users, actions } = this.props
     let usersList = Immutable(users).asMutable().map((user, i) => {
-        return <li key={ i }>{ user.username }</li>
+      return <li key={ i }><Link to={`/users/${user._id}`}>{ user.username }</Link></li>
     })
 
     return (

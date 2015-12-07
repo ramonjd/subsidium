@@ -9,17 +9,16 @@ import {urls, types} from '../constants/'
 // https://github.com/rackt/redux/blob/master/docs/recipes/WritingTests.md
 // https://github.com/rackt/redux/issues/432
 
-function setUsers(data) {
+function fetchUsers(data) {
   return {
     type: types.SET_USERS,
     data
   }
 }
-
-function makeUser(data) {
-
+function makeUser(state, data) {
   return {
     type: types.CREATE_USER,
+    state,
     data
   }
 }
@@ -47,16 +46,16 @@ export function getUsers() {
   return dispatch => {
     return request
       .get(urls.USERS_API_URL)
-      .then(res => dispatch(setUsers(res.data)))
+      .then(res => dispatch(fetchUsers(res.data)))
       .catch(err => dispatch(error(err)))
   }
 }
 
-export function createUser(data) {
+export function createUser(state, data) {
   return dispatch => {
     return request
       .post(urls.USERS_API_URL, data)
-      .then(res => dispatch(makeUser(res.data)))
+      .then(res => dispatch(makeUser(state, res.data)))
       .catch(err => dispatch(error(err)))
   }
 }

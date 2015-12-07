@@ -1,6 +1,7 @@
 // https://github.com/KyperTech/webpack-redux-react-starter/blob/master/app/store/configureStore.js
 
 import { createStore, applyMiddleware, compose } from 'redux'
+import { devTools, persistState } from 'redux-devtools';
 
 import thunk from 'redux-thunk'
 
@@ -14,7 +15,9 @@ export default function configureStore(initialState, reduxReactRouter, createHis
     reduxReactRouter({
       routes,
       createHistory
-    })
+    }),
+    devTools(),
+    persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
   )(createStore)
   const store = createStoreWithMiddleware(rootReducer, initialState)
 

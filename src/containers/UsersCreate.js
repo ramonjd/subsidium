@@ -9,8 +9,11 @@ import React, { Component, PropTypes } from 'react'
 export default class UsersView extends Component {
 
   static propTypes = {
+     users:  PropTypes.arrayOf(PropTypes.shape({
+       username: PropTypes.string.isRequired,
+    })).isRequired,
     actions : PropTypes.objectOf(React.PropTypes.func)
-  }
+   }
 
    constructor() {
      super()
@@ -20,9 +23,8 @@ export default class UsersView extends Component {
    //@autobind
    handleSubmit(e) {
      e.preventDefault()
-      this.props.createUser({
+      this.props.createUser(this.props.users, {
         username : this.refs.username.value,
-        phone : this.refs.phone.value,
         email : this.refs.email.value
       })
    }
@@ -36,10 +38,6 @@ export default class UsersView extends Component {
             <span>Username</span>
             <input autofocus required ref="username" pattern="^[a-zA-Z]{1,20}$" type="text" id="username" placeholder="username" name="username"/>
           </label>
-          <label htmlFor="phone">
-            <span>Phone</span>
-            <input ref="phone" pattern="[0-9]+" type="tel" id="phone" placeholder="07012345678" name="phone"/>
-            </label>
           <label htmlFor="email">
             <span>Email</span>
             <input ref="email" required type="email" id="email" placeholder="you@you.com" name="email"/>

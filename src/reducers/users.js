@@ -19,7 +19,7 @@ export default function users(currentState = initialState, action = {}) {
 
     case types.UPDATE_USER:
       return Immutable(currentState).map((obj, index) =>{
-        if (index === action.id) {
+        if (obj._id === action.id) {
           let mutableObject = obj.asMutable()
           for (let key in mutableObject) {
             if (mutableObject[key] && action.data[key]) {
@@ -33,9 +33,9 @@ export default function users(currentState = initialState, action = {}) {
       })
 
     case types.DELETE_USER:
-        return Immutable(currentState).filter((obj) => {
-          return obj.id !== action.id
-        })
+      return Immutable(currentState).filter((obj) => {
+        return obj.id !== action.id
+      })
 
     default:
       return currentState
