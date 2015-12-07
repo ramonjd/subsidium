@@ -10,7 +10,7 @@ export default class UsersView extends Component {
 
   static propTypes = {
     actions : PropTypes.objectOf(React.PropTypes.func)
-   }
+  }
 
    constructor() {
      super()

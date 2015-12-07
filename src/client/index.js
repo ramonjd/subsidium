@@ -5,7 +5,7 @@
 // import createBrowserHistory from 'history/lib/createBrowserHistory'
 // import * as reducers        from '../reducers/'
 // import routes               from '../routes/'
-// import Immutable from 'seamless-immutable'
+
 
 
 
@@ -21,9 +21,7 @@ window.debug = require('debug')
 const debug = window.debug('subsidium')
 //const initialState = immutifyState(window.__INITIAL_STATE__)
 const initialState = window.__INITIAL_STATE__ || {
-  users : [{
-    username : 'bob'
-  }],
+  users : [],
   router : {}
 }
 const store = configureStore(initialState, reduxReactRouter, createHistory)

@@ -1,7 +1,7 @@
 import React from 'react/addons'
 const {renderIntoDocument, scryRenderedDOMComponentsWithTag} = React.addons.TestUtils
 import { expect, assert } from 'chai'
-import UsersView from '../src/components/UsersCreate'
+import UsersCreate from '../src/components/UsersCreate'
 
 describe('Users', () => {
 
@@ -18,9 +18,9 @@ describe('Users', () => {
     )
     const inputItems = scryRenderedDOMComponentsWithTag(component, 'input')
     expect(inputItems.length).to.equal(3)
-    expect(inputItems[0].name).to.be('username')
-    expect(inputItems[1].name).to.be('phone')
-    expect(inputItems[2].name).to.be('email')
+    expect(inputItems[0].name).to.equal('username')
+    expect(inputItems[1].name).to.equal('phone')
+    expect(inputItems[2].name).to.equal('email')
 
   })
 

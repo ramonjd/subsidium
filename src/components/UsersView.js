@@ -1,5 +1,6 @@
-//https://github.com/jchapron/redux-friendlist-demo/blob/v1.0/src/containers/FriendListApp.js
 import React, { Component, PropTypes } from 'react'
+import Immutable from 'seamless-immutable'
+
 export default class UsersView extends Component {
 
   static propTypes = {
@@ -9,13 +10,16 @@ export default class UsersView extends Component {
     actions : PropTypes.objectOf(React.PropTypes.func)
    }
 
+   constructor(props) {
+     super(props)
+   }
+
   render () {
 
     const { users, actions } = this.props;
-    console.log('UsersView', this.props);
-    let usersList = users.map((user, i) => {
+    let usersList = Immutable(users).asMutable().map((user, i) => {
         return <li key={ i }>{ user.username }</li>
-      })
+    })
 
     return (
       <ul className="UsersView">

@@ -1,4 +1,5 @@
 //https://github.com/KyperTech/webpack-redux-react-starter/blob/master/app/components/Main.js
+// http://notjoshmiller.com/ajax-polling-in-react-with-redux/
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -27,13 +28,16 @@ class Users extends Component {
   constructor() {
     super()
   }
+  componentWillMount() {
 
+      this.props.actions.getUsers()
+  }
   render () {
-    const {users, actions} = this.props;
+    const {actions} = this.props
     return (
       <section className="Users">
-        <h1>Users</h1>
-        <UsersView users={ users } actions={ actions } />
+        <h1>Users </h1>
+        <UsersView users={ this.props.users } actions={ actions } />
         <UsersCreate createUser={ actions.createUser } />
      </section>
     )

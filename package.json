@@ -19,6 +19,7 @@
     "babel-loader": "^6.2.0",
     "babel-plugin-syntax-decorators": "^6.1.18",
     "babel-plugin-transform-class-properties": "^6.2.2",
+    "babel-plugin-transform-decorators": "^6.3.13",
     "babel-plugin-transform-flow-strip-types": "^6.1.18",
     "babel-plugin-transform-object-rest-spread": "^6.1.18",
     "babel-polyfill": "^6.2.0",

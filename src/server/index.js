@@ -28,10 +28,10 @@ import api from '../api/';
 export default function(callback) {
   const server = express();
 
-  // mongoose.connect(config.database);
-  // mongoose.connection.on('error', function() {
-  //   console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
-  // });
+  mongoose.connect(config.database);
+  mongoose.connection.on('error', function() {
+    console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
+  });
 
   server.set('env', process.env.NODE_ENV || 'development');
   server.set('host', process.env.HOST || 'localhost');

@@ -7,6 +7,7 @@ import {urls, types} from '../constants/'
 // https://github.com/rackt/redux/issues/99
 // see here for example
 // https://github.com/rackt/redux/blob/master/docs/recipes/WritingTests.md
+// https://github.com/rackt/redux/issues/432
 
 function setUsers(data) {
   return {
@@ -52,7 +53,6 @@ export function getUsers() {
 }
 
 export function createUser(data) {
-  console.log('createUser', data)
   return dispatch => {
     return request
       .post(urls.USERS_API_URL, data)

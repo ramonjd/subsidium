@@ -2,12 +2,17 @@
 
 A team support time tracker.
 
+Node, React, Redux, MongoDB and others.
+
 ## setup
 
 ```
+$ npm install
+$ sudo /etc/init.d/mongod restart
 $ npm run dev
-$ browser http://localhost:3000
 ```
+
+browse to http://localhost:8888
 
 ## tests
 
@@ -38,6 +43,7 @@ https://github.com/bananaoomarang/isomorphic-redux
 
 ## decorators
 https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.7kzfmj6xy
+https://github.com/wycats/javascript-decorators
 
 ## async redux
 https://github.com/rackt/redux/blob/master/examples/async/actions/index.js
