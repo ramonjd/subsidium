@@ -5,10 +5,8 @@ import { Link } from 'react-router'
 export default class UsersView extends Component {
 
   static propTypes = {
-     users:  PropTypes.arrayOf(PropTypes.shape({
-       username: PropTypes.string.isRequired,
-    })).isRequired,
-    actions : PropTypes.objectOf(React.PropTypes.func)
+    users:  PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    actions : PropTypes.objectOf(React.PropTypes.func).isRequired
    }
 
    constructor(props) {

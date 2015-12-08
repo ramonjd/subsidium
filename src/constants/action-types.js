@@ -1,4 +1,9 @@
-export const SET_USERS = 'SET_USERS';
+export const GET_TASKS = 'GET_TASKS';
+export const GET_TASK_BY_ID = 'GET_TASK_BY_ID';
+export const CREATE_TASK = 'CREATE_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
+export const GET_USERS = 'GET_USERS';
 export const GET_USER_BY_ID = 'GET_USER_BY_ID';
 export const CREATE_USER = 'CREATE_USER';
 export const UPDATE_USER = 'UPDATE_USER';

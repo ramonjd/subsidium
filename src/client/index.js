@@ -22,6 +22,7 @@ const debug = window.debug('subsidium')
 //const initialState = immutifyState(window.__INITIAL_STATE__)
 const initialState = window.__INITIAL_STATE__ || {
   users : [],
+  tasks : [],
   router : {}
 }
 const store = configureStore(initialState, reduxReactRouter, createHistory)

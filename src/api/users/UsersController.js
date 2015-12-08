@@ -13,6 +13,18 @@ const UsersController  = {
     });
   },
 
+  getUserById(req, res, next) {
+    User.findById(req.params.id, function (err, user) {
+      if (!err) {
+        res.json(user);
+      } else {
+        res.json(500, err);
+        console.log('Error UsersController:getUserById');
+      }
+    });
+  },
+
+
   updateUserById(req, res, next) {
     var updateObject = req.body;
     User.
@@ -40,45 +52,6 @@ const UsersController  = {
         return next(err);
       }
     });
-
-
-    //
-    // {
-    //   id: {
-    //     type: String,
-    //     required: true,
-    //     unique: true,
-    //     index: true,
-    //     default: mongoose.Types.ObjectId
-    //   },
-    //   password: String,
-    //   username: {
-    //     type: String,
-    //     default: '',
-    //     required: true
-    //   },
-    //   contact : {
-    //     mobile : { type: String, default: ''},
-    //     email : { type: String, default: ''}
-    //   },
-    //   dateJoined: { type: Date, default: Date.now }
-    // }
-
-
-
-    // User.findOne({email: req.body.email}, function(err, existingUser) {
-    //   if(existingUser) {
-    //     req.flash('errors', { msg: 'Account with that email address already exists' });
-    //   }
-    //   user.save(function(err) {
-    //     if(err) return next(err);
-    //     req.logIn(user, function(err) {
-    //       if(err) return next(err);
-    //       console.log('Successfully created');
-    //       res.end('Success');
-    //     });
-    //   });
-    // });
 
   }
 

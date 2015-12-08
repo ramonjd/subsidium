@@ -3,22 +3,28 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as UserActions from '../actions/'
+import { userActions } from '../actions/'
 import Immutable from 'seamless-immutable'
 
 class UserProfile extends Component {
 
-  constructor(props) {
-    super(props)
-    this.getUserById = this.getUserById.bind(this)
-  }
-  // 
-  // componentWillMount() {
-  //     this.props.actions.getUserById()
-  // }
 
-  getUserById(id) {
-    return Immutable(this.props.users).asMutable().map((user, i) => {
+  static propTypes = {
+    users:  PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    actions : PropTypes.objectOf(React.PropTypes.func).isRequired
+   }
+
+  constructor() {
+    super()
+  }
+
+  componentWillMount() {
+      this.props.actions.getUsers()
+  }
+
+  render () {
+    const { params: { id }, users} = this.props
+    let userProfile = Immutable(users).asMutable().map((user, i) => {
       if (user._id === id) {
         return (
           <div className="" key={user._id}>
@@ -27,14 +33,11 @@ class UserProfile extends Component {
         )
       }
     })
-  }
 
-  render () {
-    const { params: { id }} = this.props
     return (
       <section className="UserProfile">
         <h1>User Profile </h1>
-        {this.getUserById(id)}
+        {userProfile}
      </section>
     )
   }
@@ -47,7 +50,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { actions : bindActionCreators(UserActions, dispatch) }
+  return { actions : bindActionCreators(userActions, dispatch) }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)

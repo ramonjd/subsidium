@@ -1,5 +1,5 @@
-import React from 'react/addons'
-const {renderIntoDocument, scryRenderedDOMComponentsWithTag} = React.addons.TestUtils
+import React from 'react'
+import {renderIntoDocument, scryRenderedDOMComponentsWithTag} from 'react-addons-test-utils'
 import { expect, assert } from 'chai'
 import UsersView from '../src/components/UsersView'
 
@@ -17,7 +17,7 @@ describe('Users', () => {
   }
 
   it('renders UsersView into page', () => {
-    
+
     const component = renderIntoDocument(
       <UsersView users={ usersMock } actions={ actionsMock }/>
     )

@@ -1,9 +1,16 @@
-import React from 'react/addons'
-const {renderIntoDocument, scryRenderedDOMComponentsWithTag} = React.addons.TestUtils
+import React from 'react'
+import {renderIntoDocument, scryRenderedDOMComponentsWithTag} from 'react-addons-test-utils'
 import { expect, assert } from 'chai'
-import UsersCreate from '../src/components/UsersCreate'
+import UserCreate from '../src/components/UserCreate'
 
 describe('Users', () => {
+
+  const usersMock = [
+    {
+      id: 0,
+      username : 'tony'
+    }
+  ]
 
   const actionsMock = {
     createUser : (formData) => {
@@ -14,7 +21,7 @@ describe('Users', () => {
   it('renders UsersView into page', () => {
 
     const component = renderIntoDocument(
-      <UsersCreate createUser={ actionsMock.createUser } />
+      <UserCreate users={ usersMock } createUser={ actionsMock.createUser } />
     )
     const inputItems = scryRenderedDOMComponentsWithTag(component, 'input')
     expect(inputItems.length).to.equal(3)

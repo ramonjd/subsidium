@@ -39,12 +39,12 @@ describe('store', () => {
       })
 
 
-      it('it sets store state for SET_USERS', () => {
+      it('it sets store state for GET_USERS', () => {
 
         let store = configureStore({}, reduxReactRouter, createHistory)
 
         store.dispatch({
-          type: types.SET_USERS,
+          type: types.GET_USERS,
           data: usersArray
         })
 

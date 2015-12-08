@@ -11,13 +11,13 @@ export default function users(currentState = initialState, action = {}) {
 
   switch(action.type) {
 
-    case types.GET_USERS:
+    case types.GET_TASKS:
       return Immutable(action.data)
 
-    case types.CREATE_USER:
+    case types.CREATE_TASK:
       return Immutable(currentState).concat([action.data])
 
-    case types.UPDATE_USER:
+    case types.UPDATE_TASK:
       return Immutable(currentState).map((obj, index) =>{
         if (obj._id === action.id) {
           let mutableObject = obj.asMutable()
@@ -32,7 +32,7 @@ export default function users(currentState = initialState, action = {}) {
         }
       })
 
-    case types.DELETE_USER:
+    case types.DELETE_TASK:
       return Immutable(currentState).filter((obj) => {
         return obj.id !== action.id
       })

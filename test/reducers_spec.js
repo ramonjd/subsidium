@@ -19,11 +19,11 @@ describe('reducers', () => {
       }
     ]
 
-    it('sets users array to the state for SET_USERS', () => {
+    it('sets users array to the state for GET_USERS', () => {
       const state = Immutable([])
 
       let nextState = userReducer(state, {
-        type : types.SET_USERS,
+        type : types.GET_USERS,
         data : usersArray
       })
 

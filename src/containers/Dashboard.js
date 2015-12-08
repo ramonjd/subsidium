@@ -23,8 +23,8 @@ export default class Dashboard extends Component {
             pathname : '/'
           },
           {
-            text : 'Support Tracker',
-            pathname : '/tracker'
+            text : 'Tasks',
+            pathname : '/tasks'
           },
           {
             text : 'Users',

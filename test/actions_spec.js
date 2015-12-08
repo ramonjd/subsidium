@@ -2,7 +2,7 @@
 import { applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { expect, assert } from 'chai'
-import * as actions from '../src/actions/'
+import {userActions} from '../src/actions/'
 import { types, urls } from '../src/constants/'
 import nock from 'nock'
 
@@ -65,7 +65,7 @@ describe('users', () => {
 
 
 
-  it('creates SET_USERS after gettings users', (done) => {
+  it('creates GET_USERS after gettings users', (done) => {
 
     let usersArray =  [
       {
@@ -82,10 +82,10 @@ describe('users', () => {
       .reply(200, usersArray)
 
     expectedActions = [
-      { type: 'SET_USERS', data: usersArray }
+      { type: 'GET_USERS', data: usersArray }
     ]
     store = mockStore({ users: [] }, expectedActions, done)
-    store.dispatch(actions.getUsers())
+    store.dispatch(userActions.getUsers())
 
     })
 
@@ -106,7 +106,7 @@ describe('users', () => {
       ]
       store = mockStore({ users: [] }, expectedActions, done)
 
-       store.dispatch(actions.createUser(newUser))
+      store.dispatch(userActions.createUser(newUser))
 
       })
 
@@ -127,7 +127,7 @@ describe('users', () => {
         ]
         store = mockStore({ users: [] }, expectedActions, done)
 
-        store.dispatch(actions.updateUser(0, updatedUser))
+        store.dispatch(userActions.updateUser(0, updatedUser))
 
       })
 
@@ -146,7 +146,7 @@ describe('users', () => {
           ]
           store = mockStore({ users: [] }, expectedActions, done)
 
-          store.dispatch(actions.deleteUser(0))
+          store.dispatch(userActions.deleteUser(0))
 
         })
   })

@@ -3,17 +3,17 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as UserActions from '../actions/'
+import {userActions} from '../actions/'
 import UsersView from '../components/UsersView'
 import UserCreate from '../components/UserCreate'
-
+console.log(userActions)
 // function mapStateToProps(state) {
 //   console.log('statesss', state)
 //   return { users: state.users }
 // }
 //
 // function mapDispatchToProps(dispatch) {
-//   return bindActionCreators(UserActions, dispatch)
+//   return bindActionCreators(userActions, dispatch)
 // }
 //
 //
@@ -21,9 +21,8 @@ import UserCreate from '../components/UserCreate'
 class Users extends Component {
 
   static propTypes = {
-     users:  PropTypes.array,
-     actions : PropTypes.object,
-     children: PropTypes.node
+    users:  PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    actions : PropTypes.objectOf(React.PropTypes.func).isRequired
    }
 
   constructor() {
@@ -52,7 +51,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { actions : bindActionCreators(UserActions, dispatch) }
+  return { actions : bindActionCreators(userActions, dispatch) }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users)

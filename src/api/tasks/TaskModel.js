@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-let ActivitySchema = new mongoose.Schema({
+let TaskSchema = new mongoose.Schema({
   id: {
     type: String,
     required: true,
@@ -27,4 +27,4 @@ let ActivitySchema = new mongoose.Schema({
   }
 });
 
-export default mongoose.model('Activity', ActivitySchema);
+export default mongoose.model('Task', TaskSchema);
