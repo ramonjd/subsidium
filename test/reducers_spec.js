@@ -11,11 +11,11 @@ describe('reducers', () => {
     const usersArray =  [
       {
         username : 'Fred',
-        id : 0
+        _id : 0
       },
       {
         username : 'Bob',
-        id : 1
+        _id : 1
       }
     ]
 
@@ -40,7 +40,7 @@ describe('reducers', () => {
           type : types.CREATE_USER,
           data : {
             username : 'Slob',
-            id : 2
+            _id : 2
           }
         })
 
@@ -48,21 +48,21 @@ describe('reducers', () => {
         assert.deepEqual(nextState, [
           {
             username : 'Fred',
-            id : 0
+            _id : 0
           },
           {
             username : 'Bob',
-            id : 1
+            _id : 1
           },
           {
             username : 'Slob',
-            id : 2
+            _id : 2
           }
         ])
      })
 
 
-     it('edit user in users for EDIT_USERS', () => {
+     it('edit user in users for UPDATE_USER', () => {
 
        const state = Immutable(usersArray)
 
@@ -78,11 +78,11 @@ describe('reducers', () => {
        assert.deepEqual(nextState, [
          {
            username : 'Fred',
-           id : 0
+           _id : 0
          },
          {
            username : 'Slobbr',
-           id : 1
+           _id : 1
          }
        ])
      })
@@ -99,7 +99,7 @@ describe('reducers', () => {
        assert.deepEqual(nextState, [
          {
            username : 'Bob',
-           id : 1
+           _id : 1
          }
        ])
      })

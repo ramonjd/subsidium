@@ -70,11 +70,11 @@ describe('users', () => {
     let usersArray =  [
       {
         username : 'Fred',
-        id : 0
+        _id : 0
       },
       {
         username : 'Bob',
-        id : 1
+        _id : 1
       }
     ]
     nock('http://localhost:8888')
@@ -94,7 +94,7 @@ describe('users', () => {
 
       let newUser =  {
         username : 'N00b',
-        id : 0
+        _id : 0
       }
 
       nock('http://localhost:8888')
@@ -102,20 +102,20 @@ describe('users', () => {
         .reply(201, newUser)
 
       expectedActions = [
-        { type: 'CREATE_USER', data: newUser }
+        { type: 'CREATE_USER', state: [], data: newUser }
       ]
       store = mockStore({ users: [] }, expectedActions, done)
 
-      store.dispatch(userActions.createUser(newUser))
+      store.dispatch(userActions.createUser([], newUser))
 
       })
 
 
-      it('creates EDIT_USER after editing a user', (done) => {
+      it('creates UPDATE_USER after editing a user', (done) => {
 
         let updatedUser =  {
           username : 'N00berlicious',
-          id : 0
+          _id : 0
         }
 
         nock('http://localhost:8888')

@@ -1,7 +1,7 @@
 import React from 'react'
 import {renderIntoDocument, scryRenderedDOMComponentsWithTag} from 'react-addons-test-utils'
 import { expect, assert } from 'chai'
-import UserCreate from '../src/components/UserCreate'
+import UserCreateEdit from '../src/components/UserCreateEdit'
 
 describe('Users', () => {
 
@@ -13,7 +13,7 @@ describe('Users', () => {
   ]
 
   const actionsMock = {
-    createUser : (formData) => {
+    onSubmit : (e) => {
 
     }
   }
@@ -21,12 +21,11 @@ describe('Users', () => {
   it('renders UsersView into page', () => {
 
     const component = renderIntoDocument(
-      <UserCreate users={ usersMock } createUser={ actionsMock.createUser } />
+      <UserCreateEdit user={ usersMock[0] } onSubmit={ actionsMock.onSubmit } />
     )
     const inputItems = scryRenderedDOMComponentsWithTag(component, 'input')
-    expect(inputItems.length).to.equal(3)
+    expect(inputItems.length).to.equal(2)
     expect(inputItems[0].name).to.equal('username')
-    expect(inputItems[1].name).to.equal('phone')
     expect(inputItems[2].name).to.equal('email')
 
   })

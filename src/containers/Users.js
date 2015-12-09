@@ -43,7 +43,8 @@ class Users extends Component {
     this.handleEditUser = this.handleEditUser.bind(this)
     this.handleDeleteUser = this.handleDeleteUser.bind(this)
     this.toggleUserCreateEditPanel = this.toggleUserCreateEditPanel.bind(this)
-    this.createUserCreateEditNode = this.createUserCreateEditNode.bind(this)
+  this.createUserCreateEditNode = this.createUserCreateEditNode.bind(this)
+this.onSubmit = this.onSubmit.bind(this)
   }
 
   componentWillMount() {
@@ -70,24 +71,31 @@ class Users extends Component {
 
   }
 
+  onSubmit(users, data){
+    if (this.state.mode === 'edit') {
+         actions.updateUser(data.id, data)
+
+    } else {
+        actions.createUser(users, data)
+    }
+  }
+
   createUserCreateEditNode(){
     const {users, actions} = this.props
 
     let onSubmit
     let title
-
     if (this.state.mode === 'edit') {
-        onSubmit = actions.updateUser
         title = 'Edit user'
     } else {
-        onSubmit = actions.createUser
         title = 'Create new user'
     }
+
 
     console.log(onSubmit)
 
     return (
-      <UserCreateEdit title={title} users={ users } onSubmit={ onSubmit } userId={this.state.currentUserId}/>
+      <UserCreateEdit title={title} users={ users } onSubmit={ this.onSubmit } userId={this.state.currentUserId}/>
     )
   }
 
