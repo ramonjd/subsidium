@@ -6,9 +6,7 @@ import Button from './Button'
 export default class UsersView extends Component {
 
   static propTypes = {
-    users:  PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    editUser : React.PropTypes.func.isRequired,
-    deleteUser : React.PropTypes.func.isRequired
+    users:  PropTypes.arrayOf(React.PropTypes.object).isRequired
    }
 
    constructor(props) {
@@ -22,8 +20,6 @@ export default class UsersView extends Component {
       return (
         <li key={ i }>
           <Link to={`/users/${user._id}`}>{ user.username }</Link>
-          <Button onClick={this.props.editUser.bind(this, user._id)}>Edit</Button>
-          <Button>Delete</Button>
         </li>)
     })
 
