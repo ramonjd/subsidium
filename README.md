@@ -22,6 +22,9 @@ $ npm run test
 
 ## Reference materials
 
+## Calendars
+https://github.com/intljusticemission/react-big-calendar
+
 ## redux
 http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html
 https://github.com/jchapron/redux-friendlist-demo/blob/v1.0/src/containers/FriendListApp.js

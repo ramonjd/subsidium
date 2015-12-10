@@ -83,19 +83,23 @@ this.onSubmit = this.onSubmit.bind(this)
   createUserCreateEditNode(){
     const {users, actions} = this.props
 
-    let onSubmit
-    let title
-    if (this.state.mode === 'edit') {
-        title = 'Edit user'
-    } else {
-        title = 'Create new user'
-    }
-
-
-    console.log(onSubmit)
-
+    // let onSubmit
+    // let title
+    // if (this.state.mode === 'edit') {
+    //     title = 'Edit user'
+    // } else {
+    //     title = 'Create new user'
+    // }
+    //
+    //
+    // console.log(onSubmit)
+let userMock = {
+  id: 0,
+  name : 'tony',
+  email : 'tony@tony.com'
+}
     return (
-      <UserCreateEdit title={title} users={ users } onSubmit={ this.onSubmit } userId={this.state.currentUserId}/>
+      <UserCreateEdit title="User" user={ userMock } onSubmit={ this.onSubmit } />
     )
   }
 
@@ -104,7 +108,6 @@ this.onSubmit = this.onSubmit.bind(this)
     return (
       <section className="Users">
         <h1>Users </h1>
-        <UsersView users={ users } editUser={this.handleEditUser} deleteUser={this.handleDeleteUser}/>
         <Button onClick={this.handleCreateNewUser}>Create a new user</Button>
         { this.state.showUserCreate ? this.createUserCreateEditNode() : null }
      </section>

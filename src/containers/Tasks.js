@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {taskActions} from '../actions/'
+import TaskCreateEdit from '../components/TaskCreateEdit'
 
 
 class Tasks extends Component {
@@ -21,9 +22,18 @@ class Tasks extends Component {
   }
   render () {
     const {tasks, actions} = this.props
+    let taskMock =   {
+        id: 0,
+        name : 'eat',
+        description : 'in bed',
+        type : -1
+      }
+      let submitMock = () => {}
     return (
       <section className="Tasks">
         <h1>Tasks</h1>
+        <TaskCreateEdit title="User" task={ taskMock } onSubmit={ submitMock } />
+
      </section>
     )
   }

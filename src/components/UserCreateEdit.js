@@ -35,14 +35,18 @@ export default class UserCreateEdit extends Component {
       <form name="UserCreateEdit" className="UserCreateEdit" onSubmit={this.handleSubmit}>
         <fieldset>
           <legend>{this.props.title} user</legend>
-          <label htmlFor="name">
-            <span>name</span>
-            <input autofocus required pattern="^[a-zA-Z0-9\-\.]{1,20}$" type="text" id="name" placeholder="name" name="name" defaultValue={user.name}/>
-          </label>
-          <label htmlFor="email">
-            <span>Email</span>
-            <input required type="email" id="email" placeholder="you@you.com" name="email" defaultValue={user.email} />
-          </label>
+          <div className="formControlGroup">
+            <label htmlFor="name">
+              <span>name</span>
+              <input autofocus required pattern="^[a-zA-Z0-9\-\.]{1,20}$" type="text" id="name" placeholder="name" name="name" defaultValue={user.name}/>
+            </label>
+          </div>
+          <div className="formControlGroup">
+            <label htmlFor="email">
+              <span>Email</span>
+              <input required type="email" id="email" placeholder="you@you.com" name="email" defaultValue={user.email} />
+            </label>
+          </div>
           <button type="submit">{this.props.title} user</button>
         </fieldset>
      </form>
