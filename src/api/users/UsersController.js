@@ -40,7 +40,7 @@ const UsersController  = {
 
   createUser(req, res, next) {
     var user =  new User({
-      username : req.body.username,
+      name : req.body.name,
       email : req.body.email
     });
 

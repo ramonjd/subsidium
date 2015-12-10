@@ -10,11 +10,11 @@ describe('store', () => {
   describe('users', () => {
       const usersArray =  [
         {
-          username : 'Fred',
+          name : 'Fred',
           _id : 0
         },
         {
-          username : 'Bob',
+          name : 'Bob',
           _id : 1
         }
       ]
@@ -61,13 +61,13 @@ describe('store', () => {
           type: types.CREATE_USER,
           data: {
             _id : 3,
-            username : 'Fanny'
+            name : 'Fanny'
           }
         })
 
         assert.deepEqual(store.getState().users, [{
           _id : 3,
-          username : 'Fanny'
+          name : 'Fanny'
         }])
 
       })
@@ -82,17 +82,17 @@ describe('store', () => {
           type: types.UPDATE_USER,
           id: 1,
           data : {
-            username : 'Nobby'
+            name : 'Nobby'
           }
         })
 
         assert.deepEqual(store.getState().users, [
           {
-            username : 'Fred',
+            name : 'Fred',
             _id : 0
           },
           {
-            username : 'Nobby',
+            name : 'Nobby',
             _id : 1
           }
         ])
@@ -112,7 +112,7 @@ describe('store', () => {
 
         assert.deepEqual(store.getState().users, [{
           _id : 1,
-          username : 'Bob'
+          name : 'Bob'
         }])
 
       })

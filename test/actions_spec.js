@@ -69,11 +69,11 @@ describe('users', () => {
 
     let usersArray =  [
       {
-        username : 'Fred',
+        name : 'Fred',
         _id : 0
       },
       {
-        username : 'Bob',
+        name : 'Bob',
         _id : 1
       }
     ]
@@ -93,7 +93,7 @@ describe('users', () => {
     it('creates CREATE_USER after creating users', (done) => {
 
       let newUser =  {
-        username : 'N00b',
+        name : 'N00b',
         _id : 0
       }
 
@@ -114,7 +114,7 @@ describe('users', () => {
       it('creates UPDATE_USER after editing a user', (done) => {
 
         let updatedUser =  {
-          username : 'N00berlicious',
+          name : 'N00berlicious',
           _id : 0
         }
 

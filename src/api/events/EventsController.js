@@ -75,7 +75,7 @@ const UsersController  = {
     //     default: mongoose.Types.ObjectId
     //   },
     //   password: String,
-    //   username: {
+    //   name: {
     //     type: String,
     //     default: '',
     //     required: true

@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {userActions} from '../actions/'
-import UsersView from '../components/UsersView'
+import ItemListView from '../components/ItemListView'
 import UserCreateEdit from '../components/UserCreateEdit'
 import Button from '../components/Button'
 

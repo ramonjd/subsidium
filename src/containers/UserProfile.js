@@ -28,7 +28,7 @@ class UserProfile extends Component {
       if (user._id === id) {
         return (
           <div className="" key={user._id}>
-            <h3>{ user.username } { user.email }</h3>
+            <h3>{ user.name } { user.email }</h3>
           </div>
         )
       }

@@ -4,8 +4,6 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {taskActions} from '../actions/'
-import TasksView from '../components/TasksView'
-import TaskCreate from '../components/TaskCreate'
 
 
 class Tasks extends Component {
@@ -26,8 +24,6 @@ class Tasks extends Component {
     return (
       <section className="Tasks">
         <h1>Tasks</h1>
-        <TasksView tasks={ tasks } actions={ actions } />
-        <TaskCreate tasks={ tasks } createTask={ actions.createTask } />
      </section>
     )
   }

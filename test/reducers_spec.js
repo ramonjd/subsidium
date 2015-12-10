@@ -10,11 +10,11 @@ describe('reducers', () => {
 
     const usersArray =  [
       {
-        username : 'Fred',
+        name : 'Fred',
         _id : 0
       },
       {
-        username : 'Bob',
+        name : 'Bob',
         _id : 1
       }
     ]
@@ -39,7 +39,7 @@ describe('reducers', () => {
         let nextState = userReducer(state, {
           type : types.CREATE_USER,
           data : {
-            username : 'Slob',
+            name : 'Slob',
             _id : 2
           }
         })
@@ -47,15 +47,15 @@ describe('reducers', () => {
         assert.isTrue( Immutable.isImmutable(nextState))
         assert.deepEqual(nextState, [
           {
-            username : 'Fred',
+            name : 'Fred',
             _id : 0
           },
           {
-            username : 'Bob',
+            name : 'Bob',
             _id : 1
           },
           {
-            username : 'Slob',
+            name : 'Slob',
             _id : 2
           }
         ])
@@ -70,18 +70,18 @@ describe('reducers', () => {
          type : types.UPDATE_USER,
          id : 1,
          data : {
-           username : 'Slobbr'
+           name : 'Slobbr'
          }
        })
 
        assert.isTrue( Immutable.isImmutable(nextState))
        assert.deepEqual(nextState, [
          {
-           username : 'Fred',
+           name : 'Fred',
            _id : 0
          },
          {
-           username : 'Slobbr',
+           name : 'Slobbr',
            _id : 1
          }
        ])
@@ -98,7 +98,7 @@ describe('reducers', () => {
        assert.isTrue( Immutable.isImmutable(nextState))
        assert.deepEqual(nextState, [
          {
-           username : 'Bob',
+           name : 'Bob',
            _id : 1
          }
        ])

@@ -23,22 +23,25 @@ export default class UserCreateEdit extends Component {
 
   handleSubmit(e){
     e.preventDefault()
-    this.props.onSubmit(e)
+    this.props.onSubmit({
+      name : e.target.elements.name.value,
+      email : e.target.elements.email.value
+    })
   }
 
   render () {
     const { user} = this.props
     return (
-      <form className="UserCreateEdit" onSubmit={this.handleSubmit}>
+      <form name="UserCreateEdit" className="UserCreateEdit" onSubmit={this.handleSubmit}>
         <fieldset>
           <legend>{this.props.title} user</legend>
-          <label htmlFor="username">
-            <span>Username</span>
-            <input autofocus required ref="username" pattern="^[a-zA-Z]{1,20}$" type="text" id="username" placeholder="username" name="username" defaultValue={user.username}/>
+          <label htmlFor="name">
+            <span>name</span>
+            <input autofocus required pattern="^[a-zA-Z0-9\-\.]{1,20}$" type="text" id="name" placeholder="name" name="name" defaultValue={user.name}/>
           </label>
           <label htmlFor="email">
             <span>Email</span>
-            <input ref="email" required type="email" id="email" placeholder="you@you.com" name="email" defaultValue={user.email} />
+            <input required type="email" id="email" placeholder="you@you.com" name="email" defaultValue={user.email} />
           </label>
           <button type="submit">{this.props.title} user</button>
         </fieldset>

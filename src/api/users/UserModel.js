@@ -9,7 +9,7 @@ let UserSchema = new mongoose.Schema({
     default: mongoose.Types.ObjectId
   },
   password: String,
-  username: {
+  name: {
     type: String,
     default: '',
     required: true
