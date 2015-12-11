@@ -2,12 +2,13 @@
 
 import { createStore, applyMiddleware, compose } from 'redux'
 import { devTools, persistState } from 'redux-devtools';
-
 import thunk from 'redux-thunk'
-
 import rootReducer from '../reducers/'
-
 import routes from '../routes/'
+
+if (process.env.NODE_ENV === 'production') {
+  // apply different middleware
+}
 
 export default function configureStore(initialState, reduxReactRouter, createHistory) {
   const createStoreWithMiddleware = compose(
@@ -19,6 +20,9 @@ export default function configureStore(initialState, reduxReactRouter, createHis
     devTools(),
     persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
   )(createStore)
+
+
+
   const store = createStoreWithMiddleware(rootReducer, initialState)
 
   if (module.hot) {
@@ -31,10 +35,3 @@ export default function configureStore(initialState, reduxReactRouter, createHis
 
   return store
 }
-
-// export default function(initialState, reduxReactRouter, createHistory) {
-//   let reducer = combineReducers(reducers)
-//   let createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
-//   let store = createStoreWithMiddleware(reducer, initialState)
-//   return store
-// }

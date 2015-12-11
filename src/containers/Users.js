@@ -81,23 +81,51 @@ this.onSubmit = this.onSubmit.bind(this)
   }
 
   createUserCreateEditNode(){
-    const {users, actions} = this.props
-
-let userMock = {
-  id: 0,
-  name : 'tony',
-  email : 'tony@tony.com'
-}
-    return (
-      <UserCreateEdit title="User" user={ userMock } onSubmit={ this.onSubmit } />
-    )
+    // const {users, actions} = this.props
+    // return (
+    //   <UserCreateEdit title="User" user={ userMock } onSubmit={ this.onSubmit } />
+    // )
   }
 
   render () {
     const {users, actions} = this.props
+    let usersMock = [
+      {
+        id: 0,
+        name : 'tony',
+        email : 'tony@tony.com'
+      },
+      {
+        id: 1,
+        name : 'sdfsdftosdfdsfny',
+        email : 'tony@tony.com'
+      },
+      {
+        id: 2,
+        name : 'mnbmnbmbnmtonsdfsdfy',
+        email : 'tony@tony.com'
+      },
+      {
+        id: 3,
+        name : 'jfdsdasmn',
+        email : 'tony@tony.com'
+      },
+      {
+        id: 3,
+        name : 'tonewrwer',
+        email : 'tony@tony.com'
+      },
+      {
+        id: 4,
+        name : 'tonypoiuyumnbmnbmb',
+        email : 'tony@tony.com'
+      }
+    ]
     return (
       <section className="Users">
         <h1>Users </h1>
+        <ItemListView items={ usersMock } updateItem={this.handleEditUser} deleteItem={this.handleDeleteUser} apiPath="users"/>
+
         <Button onClick={this.handleCreateNewUser}>Create a new user</Button>
         { this.state.showUserCreate ? this.createUserCreateEditNode() : null }
      </section>
