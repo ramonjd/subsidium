@@ -34,7 +34,7 @@ export default function users(currentState = initialState, action = {}) {
 
     case types.DELETE_TASK:
       return Immutable(currentState).filter((obj) => {
-        return obj.id !== action.id
+        return obj._id !== action.id
       })
 
     default:

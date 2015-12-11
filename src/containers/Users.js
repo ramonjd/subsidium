@@ -83,16 +83,6 @@ this.onSubmit = this.onSubmit.bind(this)
   createUserCreateEditNode(){
     const {users, actions} = this.props
 
-    // let onSubmit
-    // let title
-    // if (this.state.mode === 'edit') {
-    //     title = 'Edit user'
-    // } else {
-    //     title = 'Create new user'
-    // }
-    //
-    //
-    // console.log(onSubmit)
 let userMock = {
   id: 0,
   name : 'tony',

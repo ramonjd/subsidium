@@ -42,7 +42,7 @@ export default class Dashboard extends Component {
               <nav>
                 <ul>
                   {navItems.map((item, i) =>
-                    <li  key={i + 1} className={this.props.location.pathname === '/users' ? 'active' : ''}>
+                    <li  key={i + 1} className={this.props.location.pathname === item.pathname ? 'active' : ''}>
                       <Link to={item.pathname}>{item.text}</Link>
                     </li>
                   )}
