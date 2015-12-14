@@ -30,11 +30,12 @@ export default class UserCreateEdit extends Component {
   }
 
   render () {
-    const { user} = this.props
+    const {user, title} = this.props
     return (
-      <form name="UserCreateEdit" className="UserCreateEdit" onSubmit={this.handleSubmit}>
+      <div className="UserCreateEdit">
+      <form className={title} onSubmit={this.handleSubmit}>
         <fieldset>
-          <legend>{this.props.title} user</legend>
+          <legend>{title} user</legend>
           <div className="formControlGroup">
             <label htmlFor="name">
               <span>name</span>
@@ -47,9 +48,10 @@ export default class UserCreateEdit extends Component {
               <input required type="email" id="email" placeholder="you@you.com" name="email" defaultValue={user.email} />
             </label>
           </div>
-          <button type="submit">{this.props.title} user</button>
+          <button type="submit">{title} user</button>
         </fieldset>
      </form>
+     </div>
     )
   }
 }

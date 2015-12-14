@@ -42,6 +42,9 @@ describe('Tasks', () => {
 
   it('passes title prop to UserCreateEdit', () => {
     const submitButtons = scryRenderedDOMComponentsWithTag(component, 'button')
+    const form = findRenderedDOMComponentWithTag(component, 'form')
+    expect(form.className).to.equal('Edit')
+
     expect(submitButtons[0].textContent).to.contain('Edit task')
 
     const legends = scryRenderedDOMComponentsWithTag(component, 'legend')

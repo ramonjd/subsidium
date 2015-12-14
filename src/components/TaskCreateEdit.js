@@ -30,31 +30,33 @@ export default class TaskCreateEdit extends Component {
   }
 
   render () {
-    const {task} = this.props
+    const {task, title} = this.props
     return (
-      <form className="TaskCreateEdit" onSubmit={this.handleSubmit}>
-        <fieldset>
-          <legend>{this.props.title} task</legend>
-          <div className="formControlGroup">
-            <label htmlFor="name">
-              <span>Taskname</span>
-              <input autofocus required pattern="^[a-zA-Z]{1,20}$" type="text" id="name" placeholder="Task name" name="name" defaultValue={task.name} />
-            </label>
-          </div>
-          <div className="formControlGroup">
-            <label htmlFor="description">
-              <span>Email</span>
-              <input required type="text" id="description" placeholder="Task description" name="description" defaultValue={task.description}/>
-            </label>
-          </div>
-          <div className="formControlGroup">
-            <span>Task type</span>
-              <label htmlFor="typeCredit"><input type="radio" id="typeCredit" name="type" value="1" defaultChecked="{task.type == 1}" /> Credits your time (e.g., support hours)</label>
-              <label htmlFor="typeDebit"><input type="radio" id="typeDebit" name="type" value="-1" defaultChecked="{task.type == -1}" /> Debits your time (e.g., time off)</label>
-          </div>
-          <button type="submit">{this.props.title} task</button>
-        </fieldset>
-     </form>
+    <div className="TaskCreateEdit">
+        <form className={title} onSubmit={this.handleSubmit}>
+          <fieldset>
+            <legend>{title} task</legend>
+            <div className="formControlGroup">
+              <label htmlFor="name">
+                <span>Taskname</span>
+                <input autofocus required pattern="^[a-zA-Z]{1,20}$" type="text" id="name" placeholder="Task name" name="name" defaultValue={task.name} />
+              </label>
+            </div>
+            <div className="formControlGroup">
+              <label htmlFor="description">
+                <span>Email</span>
+                <input required type="text" id="description" placeholder="Task description" name="description" defaultValue={task.description}/>
+              </label>
+            </div>
+            <div className="formControlGroup">
+              <span>Task type</span>
+                <label htmlFor="typeCredit"><input type="radio" id="typeCredit" name="type" value="1" defaultChecked="{task.type == 1}" /> Credits your time (e.g., support hours)</label>
+                <label htmlFor="typeDebit"><input type="radio" id="typeDebit" name="type" value="-1" defaultChecked="{task.type == -1}" /> Debits your time (e.g., time off)</label>
+            </div>
+            <button type="submit">{title} task</button>
+          </fieldset>
+       </form>
+     </div>
     )
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate } from 'react-addons-test-utils'
+import { renderIntoDocument, scryRenderedDOMComponentsWithTag, findRenderedDOMComponentWithTag, Simulate } from 'react-addons-test-utils'
 import { expect, assert } from 'chai'
 import UserCreateEdit from '../../src/components/UserCreateEdit'
 
@@ -34,6 +34,9 @@ describe('Users', () => {
 
   it('passes title prop to UserCreateEdit', () => {
     const submitButtons = scryRenderedDOMComponentsWithTag(component, 'button')
+    const form = findRenderedDOMComponentWithTag(component, 'form')
+    expect(form.className).to.equal('Create')
+
     expect(submitButtons[0].textContent).to.contain('Create user')
 
     const legends = scryRenderedDOMComponentsWithTag(component, 'legend')

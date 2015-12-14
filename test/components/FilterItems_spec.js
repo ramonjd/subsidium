@@ -5,19 +5,6 @@ import FilterItems from '../../src/components/FilterItems'
 
 describe('FilterItems', () => {
 
-  const usersMock = [
-    {
-      _id: 0,
-      name : 'tony',
-      email : 'tony@tony.com'
-    },
-    {
-      _id: 1,
-      name : 'bill',
-      email : 'bill@bill.com'
-    }
-  ]
-
   let formVal
   const handleChangeMock = (val) => {
     formVal = val
