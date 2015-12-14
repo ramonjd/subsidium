@@ -18,19 +18,15 @@ describe('ItemListView', () => {
     }
   ]
 
-  let updateUserId
-  let deleteUserId
+  let deleteUserIds
   const actionsMock = {
-    deleteUser : (id) => {
-      deleteUserId = id
-    },
-    updateUser : (id) => {
-      updateUserId = id
+    deleteUserd : (ids) => {
+      deleteUserIds = ids
     }
   }
 
   const component = renderIntoDocument(
-    <ItemListView items={ usersMock } deleteItem={actionsMock.deleteUser} updateItem={actionsMock.updateUser} apiPath="users"/>
+    <ItemListView items={ usersMock } deleteItemd={actionsMock.deleteUserd} apiPath="users"/>
   )
 
   it('renders ItemListView into page', () => {
@@ -55,16 +51,11 @@ describe('ItemListView', () => {
   //   const linkItems = scryRenderedDOMComponentsWithTag(component, 'a')
   // })
 
-  it('update and delete methods return useId', () => {
-      const updateUserButtons = scryRenderedDOMComponentsWithClass(component, 'updateItem')
-      Simulate.click(updateUserButtons[0])
-      expect(updateUserId).to.equal(0)
-      Simulate.click(updateUserButtons[1])
-      expect(updateUserId).to.equal(1)
-
+  it('delete methods return array of userIds to delete', () => {
       const deleteUserButtons = scryRenderedDOMComponentsWithClass(component, 'deleteItem')
+      // check checkboxes then click dlete
       Simulate.click(deleteUserButtons[0])
-      expect(deleteUserId).to.equal(0)
+      expect(deleteUserId).to.equal([0])
       Simulate.click(deleteUserButtons[1])
       expect(deleteUserId).to.equal(1)
   })

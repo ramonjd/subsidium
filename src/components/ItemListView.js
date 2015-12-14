@@ -8,7 +8,8 @@ import {ui} from '../constants/'
 
 let getInitialState = () => {
     return {
-        users : []
+        items : [],
+        itemIdsToDelete : []
     }
 }
 
@@ -16,8 +17,7 @@ export default class ItemListView extends Component {
 
   static propTypes = {
     items:  PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    deleteItem:  PropTypes.func.isRequired,
-    updateItem:  PropTypes.func.isRequired,
+    deleteItems:  PropTypes.func.isRequired,
     apiPath:  PropTypes.string.isRequired
   }
 
@@ -26,6 +26,8 @@ export default class ItemListView extends Component {
    this.state = getInitialState()
    this.filterItems = this.filterItems.bind(this)
    this.renderFilterItems = this.renderFilterItems.bind(this)
+   this.handleDelete = this.handleDelete.bind(this)
+   this.handleCheckboxChange  = this.handleCheckboxChange.bind(this)
   }
 
   componentWillMount() {
@@ -57,21 +59,41 @@ export default class ItemListView extends Component {
     )
   }
 
+  handleCheckboxChange(id, e){
+    let checked = e.target.checked
+    let itemIds = []
+
+    if (checked === true) {
+      itemIds = this.state.itemIdsToDelete.concat([id])
+    } else {
+      itemIds = this.state.itemIdsToDelete.filter((item, i) => {
+        return item !== id
+      })
+    }
+    this.setState({
+      itemIdsToDelete : itemIds
+    })
+  }
+
+  handleDelete() {
+    this.props.deleteItems(this.state.itemIdsToDelete)
+  }
+
   render () {
     const {updateItem, deleteItem, apiPath } = this.props
     let itemsList = this.state.items.map((item, i) => {
       return (
         <li key={ i }>
           <Link to={`/${apiPath}/${item._id}`}>{ item.name }</Link>
-          <Button className="updateItem" onClick={this.props.updateItem.bind(this, item._id)}>Edit</Button>
-          <Button className="deleteItem" onClick={this.props.deleteItem.bind(this, item._id)}>Delete</Button>
+          <input type="checkbox" name={item._id} value={item._id} onChange={this.handleCheckboxChange.bind(this, item._id)}/>
         </li>)
     })
     return (
       <div className="ItemListView">
+        { this.state.itemIdsToDelete.length > 0 ? <Button className="deleteItems" onClick={this.handleDelete}>Delete selected</Button>  : null }
         { this.props.items && this.props.items.length > ui.MIN_ITEMS_BEFORE_FILTER ? this.renderFilterItems()  : null }
         <ul>
-        { itemsList }
+          { itemsList }
         </ul>
       </div>
       )

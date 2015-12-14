@@ -8,6 +8,17 @@ import React, { Component, PropTypes } from 'react'
 //import {autobind} from 'core-decorators';
 
 
+
+let getInitialState = () => {
+    return {
+        user : {
+          name : '',
+          email : ''
+        }
+    }
+}
+
+
 export default class UserCreateEdit extends Component {
 
   static propTypes = {
@@ -18,6 +29,7 @@ export default class UserCreateEdit extends Component {
 
   constructor(props) {
     super(props)
+    this.state = getInitialState()
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 

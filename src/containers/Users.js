@@ -39,7 +39,8 @@ class Users extends Component {
   constructor(props) {
     super(props)
     this.state = getState()
-    this.handleCreateUser = this.handleCreateUser.bind(this)
+    this.handleDeleteUsers = this.handleDeleteUsers.bind(this)
+    this.handleCreateUser  = this.handleCreateUser.bind(this)
   }
 
   componentWillMount() {
@@ -47,42 +48,44 @@ class Users extends Component {
   }
 
 
-  handleCreateUser(formData){
-
+  handleDeleteUsers(userIds){
+    console.log(userIds)
   }
 
-
+  handleCreateUser(userData){
+    console.log(userData)
+  }
 
   render () {
     const {users, actions} = this.props
     let usersMock = [
       {
-        id: 0,
+        _id: 0,
         name : 'tony',
         email : 'tony@tony.com'
       },
       {
-        id: 1,
+        _id: 1,
         name : 'sdfsdftosdfdsfny',
         email : 'tony@tony.com'
       },
       {
-        id: 2,
+        _id: 2,
         name : 'mnbmnbmbnmtonsdfsdfy',
         email : 'tony@tony.com'
       },
       {
-        id: 3,
+        _id: 3,
         name : 'jfdsdasmn',
         email : 'tony@tony.com'
       },
       {
-        id: 3,
+        _id: 4,
         name : 'tonewrwer',
         email : 'tony@tony.com'
       },
       {
-        id: 4,
+        _id: 5,
         name : 'tonypoiuyumnbmnbmb',
         email : 'tony@tony.com'
       }
@@ -90,8 +93,8 @@ class Users extends Component {
     return (
       <section className="Users">
         <h1>Users </h1>
-        <ItemListView items={ usersMock } updateItem={this.handleEditUser} deleteItem={this.handleDeleteUser} apiPath="users"/>
-        <UserCreateEdit title="User" user={ userMock } onSubmit={ this.handleCreateUser } />
+        <ItemListView items={ usersMock } deleteItems={this.handleDeleteUsers} apiPath="users"/>
+        <UserCreateEdit title="User" user={ usersMock[0] } onSubmit={ this.handleCreateUser } />
      </section>
     )
   }
