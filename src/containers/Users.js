@@ -39,53 +39,19 @@ class Users extends Component {
   constructor(props) {
     super(props)
     this.state = getState()
-    this.handleCreateNewUser = this.handleCreateNewUser.bind(this)
-    this.handleEditUser = this.handleEditUser.bind(this)
-    this.handleDeleteUser = this.handleDeleteUser.bind(this)
-    this.toggleUserCreateEditPanel = this.toggleUserCreateEditPanel.bind(this)
-  this.createUserCreateEditNode = this.createUserCreateEditNode.bind(this)
-this.onSubmit = this.onSubmit.bind(this)
+    this.handleCreateUser = this.handleCreateUser.bind(this)
   }
 
   componentWillMount() {
       this.props.actions.getUsers()
   }
 
-  toggleUserCreateEditPanel(state){
-    let toggle = state !== undefined ? state : !this.state.showUserCreate
-    this.setState({showUserCreate: toggle});
-  }
 
-  handleCreateNewUser(){
-    this.setState({mode: 'create'});
-    this.toggleUserCreateEditPanel(true)
-  }
-
-  handleEditUser(id){
-    console.log('handleEditUser', id)
-    this.setState({mode: 'edit', currentUserId : id})
-    this.toggleUserCreateEditPanel(true)
-  }
-
-  handleDeleteUser(id){
+  handleCreateUser(formData){
 
   }
 
-  onSubmit(users, data){
-    if (this.state.mode === 'edit') {
-         actions.updateUser(data.id, data)
 
-    } else {
-        actions.createUser(users, data)
-    }
-  }
-
-  createUserCreateEditNode(){
-    // const {users, actions} = this.props
-    // return (
-    //   <UserCreateEdit title="User" user={ userMock } onSubmit={ this.onSubmit } />
-    // )
-  }
 
   render () {
     const {users, actions} = this.props
@@ -125,9 +91,7 @@ this.onSubmit = this.onSubmit.bind(this)
       <section className="Users">
         <h1>Users </h1>
         <ItemListView items={ usersMock } updateItem={this.handleEditUser} deleteItem={this.handleDeleteUser} apiPath="users"/>
-
-        <Button onClick={this.handleCreateNewUser}>Create a new user</Button>
-        { this.state.showUserCreate ? this.createUserCreateEditNode() : null }
+        <UserCreateEdit title="User" user={ userMock } onSubmit={ this.handleCreateUser } />
      </section>
     )
   }

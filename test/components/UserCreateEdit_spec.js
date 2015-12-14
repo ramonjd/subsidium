@@ -18,7 +18,6 @@ describe('Users', () => {
     formData = user
   }
 
-
   const component = renderIntoDocument(
     <UserCreateEdit title="Create" user={ usersMock[0] } onSubmit={ onSubmit } />
   )
