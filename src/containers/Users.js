@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 import {userActions} from '../actions/'
 import ItemListView from '../components/ItemListView'
 import UserCreateEdit from '../components/UserCreateEdit'
-import Button from '../components/Button'
 
 // function mapStateToProps(state) {
 //   console.log('statesss', state)
@@ -20,13 +19,7 @@ import Button from '../components/Button'
 //
 // @connect(mapStateToProps, mapDispatchToProps)
 
-let getState = () => {
-    return {
-        currentUserId : '',
-        showUserCreate : false,
-        mode : 'create'
-    };
-};
+
 
 class Users extends Component {
 
@@ -38,7 +31,6 @@ class Users extends Component {
 
   constructor(props) {
     super(props)
-    this.state = getState()
     this.handleDeleteUsers = this.handleDeleteUsers.bind(this)
     this.handleCreateUser  = this.handleCreateUser.bind(this)
   }
@@ -47,54 +39,26 @@ class Users extends Component {
       this.props.actions.getUsers()
   }
 
-
   handleDeleteUsers(userIds){
     console.log(userIds)
   }
 
   handleCreateUser(userData){
-    console.log(userData)
+    this.props.actions.createUser(this.props.users, userData)
   }
 
   render () {
     const {users, actions} = this.props
-    let usersMock = [
-      {
-        _id: 0,
-        name : 'tony',
-        email : 'tony@tony.com'
-      },
-      {
-        _id: 1,
-        name : 'sdfsdftosdfdsfny',
-        email : 'tony@tony.com'
-      },
-      {
-        _id: 2,
-        name : 'mnbmnbmbnmtonsdfsdfy',
-        email : 'tony@tony.com'
-      },
-      {
-        _id: 3,
-        name : 'jfdsdasmn',
-        email : 'tony@tony.com'
-      },
-      {
-        _id: 4,
-        name : 'tonewrwer',
-        email : 'tony@tony.com'
-      },
-      {
-        _id: 5,
-        name : 'tonypoiuyumnbmnbmb',
-        email : 'tony@tony.com'
-      }
-    ]
+    console.log('users', users)
     return (
       <section className="Users">
-        <h1>Users </h1>
-        <ItemListView items={ usersMock } deleteItems={this.handleDeleteUsers} apiPath="users"/>
-        <UserCreateEdit title="User" user={ usersMock[0] } onSubmit={ this.handleCreateUser } />
+        <h1>Users</h1>
+        <div className="leftCol">
+          <ItemListView items={ users } deleteItems={this.handleDeleteUsers} apiPath="users"/>
+        </div>
+        <div className="rightCol">
+          <UserCreateEdit title="Create" onSubmit={ this.handleCreateUser } />
+        </div>
      </section>
     )
   }

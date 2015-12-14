@@ -18,8 +18,8 @@ describe('FilterItems', () => {
   it('returns input value and clears list', () => {
     const inputTag = findRenderedDOMComponentWithTag(component, 'input')
     const clearButton = findRenderedDOMComponentWithTag(component, 'button')
-    inputTag.value = 'supdawg';
-    Simulate.change(inputTag);
+    inputTag.value = 'supdawg'
+    Simulate.change(inputTag)
     expect(formVal).to.equal('supdawg')
     Simulate.click(clearButton)
     expect(inputTag.value).to.equal('')

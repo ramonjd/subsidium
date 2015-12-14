@@ -15,6 +15,7 @@ export default function users(currentState = initialState, action = {}) {
       return Immutable(action.data)
 
     case types.CREATE_USER:
+      console.log('Immutable(currentState).concat([action.data])', Immutable(currentState).concat([action.data]))
       return Immutable(currentState).concat([action.data])
 
     case types.UPDATE_USER:
