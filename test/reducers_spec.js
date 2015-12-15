@@ -92,8 +92,8 @@ describe('reducers', () => {
        const state = Immutable(usersArray)
 
        let nextState = userReducer(state, {
-         type : types.DELETE_USER,
-         id : 0
+         type : types.DELETE_USERS,
+         ids : [0]
        })
        assert.isTrue( Immutable.isImmutable(nextState))
        assert.deepEqual(nextState, [

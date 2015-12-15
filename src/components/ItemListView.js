@@ -29,14 +29,6 @@ export default class ItemListView extends Component {
    this.handleCheckboxChange  = this.handleCheckboxChange.bind(this)
   }
 
-  componentWillMount() {
-
-  }
-
-  componentDidUpdate() {
-
-  }
-
   filterItems(filterTerm){
     let mutableList = Immutable(this.props.items).asMutable()
     let filteredItems = []
@@ -46,7 +38,6 @@ export default class ItemListView extends Component {
            return item._id;
          }
        })
-       console.log('filteredItems', filteredItems)
        this.setState({
          filteredItemsIds : filteredItems
        })
@@ -80,22 +71,15 @@ export default class ItemListView extends Component {
   render () {
     const { items, apiPath } = this.props
     const filteredItemsIdsLength = this.state.filteredItemsIds.length;
+
     let itemsList = Immutable(items).asMutable().map((item, i) => {
-      if (filteredItemsIdsLength > 0 && this.state.filteredItemsIds.indexOf(item._id) > -1) {
-        console.log('rendered filtered item')
-        return (
-          <li key={ i }>
-            <Link to={`/${apiPath}/${item._id}`}>{ item.name }</Link>
-            <input className="itemCheckbox" type="checkbox" name={item._id} value={item._id} onChange={this.handleCheckboxChange.bind(this, item._id)}/>
-          </li>)
-      } else if (filteredItemsIdsLength === 0) {
+      if (filteredItemsIdsLength === 0 || (filteredItemsIdsLength > 0 && this.state.filteredItemsIds.indexOf(item._id) > -1)) {
         return (
           <li key={ i }>
             <Link to={`/${apiPath}/${item._id}`}>{ item.name }</Link>
             <input className="itemCheckbox" type="checkbox" name={item._id} value={item._id} onChange={this.handleCheckboxChange.bind(this, item._id)}/>
           </li>)
       }
-
     })
 
     return (

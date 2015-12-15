@@ -30,6 +30,13 @@ function makeUser(state, data) {
     data
   }
 }
+function removeUsersById(state, ids) {
+  return {
+    type: types.DELETE_USERS,
+    state,
+    ids
+  }
+}
 function editUser(id, data) {
   return {
     type: types.UPDATE_USER,
@@ -37,18 +44,16 @@ function editUser(id, data) {
     data
   }
 }
-function removeUser(id) {
-  return {
-    type: types.DELETE_USER,
-    id
-  }
-}
+
 function error(data) {
   return {
     type: 'ERROR',
     data
   }
 }
+
+
+
 
 export function getUsers() {
   return dispatch => {
@@ -87,11 +92,11 @@ export function updateUser(userId, data) {
   }
 }
 
-export function deleteUser(userId) {
+export function deleteUsers(state, userIds) {
   return dispatch => {
     return request
-      .delete(urls.USERS_API_URL + '/' + userId)
-      .then(res => dispatch(removeUser(userId)))
+      .delete(urls.USERS_API_URL, {ids : userIds})
+      .then(res => dispatch(removeUsersById(state, userIds)))
       .catch(err => dispatch(error(err)))
   }
 }

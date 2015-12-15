@@ -1,4 +1,6 @@
-import User from './UserModel';
+import User from './UserModel'
+import async from 'async'
+
 
 const UsersController  = {
 
@@ -37,7 +39,25 @@ const UsersController  = {
         }
     });
   },
-
+  deleteUsersById(req, res, next) {
+    async.parallel([
+        (callback) => {
+          User.remove({ id: { $in: req.body.ids } }, (err) => {
+            if (err) {
+              return callback('Error while deleting '  + err.message);
+            }
+            callback(null, 'Document deleted');
+          });
+        }
+    ],
+    function(err, results){
+      if (!err) {
+        res.json(200);
+      } else {
+        res.json(422, err);
+      }
+    });
+  },
   createUser(req, res, next) {
     var user =  new User({
       name : req.body.name,

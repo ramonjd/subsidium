@@ -40,7 +40,7 @@ class Users extends Component {
   }
 
   handleDeleteUsers(userIds){
-    console.log(userIds)
+    this.props.actions.deleteUsers(this.props.users, userIds)
   }
 
   handleCreateUser(userData){

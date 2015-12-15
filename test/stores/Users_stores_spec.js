@@ -99,15 +99,16 @@ describe('store', () => {
 
       })
 
-      it('it sets store state for DELETE_USER', () => {
+      it('it sets store state for DELETE_USERS', () => {
 
         let store = configureStore({
           users : usersArray
         }, reduxReactRouter, createHistory)
 
         store.dispatch({
-          type: types.DELETE_USER,
-          id: 0
+          type: types.DELETE_USERS,
+          usersArray,
+          ids: [0]
         })
 
         assert.deepEqual(store.getState().users, [{

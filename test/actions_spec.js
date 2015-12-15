@@ -131,7 +131,7 @@ describe('users', () => {
 
       })
 
-        it('creates DELETE_USER after deleting a user', (done) => {
+        it('creates DELETE_USERS after deleting a user', (done) => {
 
 
           nock('http://localhost:8888')
@@ -140,7 +140,7 @@ describe('users', () => {
 
           expectedActions = [
             {
-              type: 'DELETE_USER',
+              type: 'DELETE_USERS',
               id : 0
             }
           ]
