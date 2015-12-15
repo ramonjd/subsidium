@@ -33,7 +33,7 @@ describe('reducers', () => {
     })
 
 
-    it('add user to users to the state for CREATE_USERS', () => {
+    it('add user to users to the state for CREATE_USER', () => {
         const state = Immutable(usersArray)
 
         let nextState = userReducer(state, {
@@ -47,16 +47,16 @@ describe('reducers', () => {
         assert.isTrue( Immutable.isImmutable(nextState))
         assert.deepEqual(nextState, [
           {
+            name : 'Slob',
+            _id : 2
+          },
+          {
             name : 'Fred',
             _id : 0
           },
           {
             name : 'Bob',
             _id : 1
-          },
-          {
-            name : 'Slob',
-            _id : 2
           }
         ])
      })
@@ -87,19 +87,19 @@ describe('reducers', () => {
        ])
      })
 
-     it('delete user in users for DELETE_USERS', () => {
+     it('delete user in users for DELETE_USER', () => {
 
        const state = Immutable(usersArray)
 
        let nextState = userReducer(state, {
-         type : types.DELETE_USERS,
-         ids : [0]
+         type : types.DELETE_USER,
+         id : 0
        })
-       assert.isTrue( Immutable.isImmutable(nextState))
+       assert.isTrue(Immutable.isImmutable(nextState))
        assert.deepEqual(nextState, [
          {
-           name : 'Bob',
-           _id : 1
+           _id : 1,
+           name : 'Bob'
          }
        ])
      })

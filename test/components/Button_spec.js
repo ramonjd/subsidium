@@ -13,17 +13,17 @@ describe('Button', () => {
 
 
   const component = renderIntoDocument(
-    <Button className="myButton" onClick={ onClick }>Yo</Button>
+    <Button className="myButton" title="TEEM" onClick={ onClick }>Yo</Button>
   )
 
 
   it('renders button ', () => {
     const button = findRenderedDOMComponentWithTag(component, 'button')
     expect(button.textContent).to.contain('Yo')
+    expect(button.getAttribute('title')).to.equal('TEEM')
     expect(button.className).to.contain('myButton')
     Simulate.click(button)
     expect(someVar).to.equal('else')
-
   })
 
 })

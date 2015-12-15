@@ -63,8 +63,6 @@ describe('users', () => {
     nock.cleanAll()
   })
 
-
-
   it('creates GET_USERS after gettings users', (done) => {
 
     let usersArray =  [
@@ -102,11 +100,11 @@ describe('users', () => {
         .reply(201, newUser)
 
       expectedActions = [
-        { type: 'CREATE_USER', state: [], data: newUser }
+        { type: 'CREATE_USER', data: newUser }
       ]
       store = mockStore({ users: [] }, expectedActions, done)
 
-      store.dispatch(userActions.createUser([], newUser))
+      store.dispatch(userActions.createUser(newUser))
 
       })
 
@@ -131,7 +129,7 @@ describe('users', () => {
 
       })
 
-        it('creates DELETE_USERS after deleting a user', (done) => {
+        it('creates DELETE_USER after deleting a user', (done) => {
 
 
           nock('http://localhost:8888')
@@ -140,7 +138,7 @@ describe('users', () => {
 
           expectedActions = [
             {
-              type: 'DELETE_USERS',
+              type: 'DELETE_USER',
               id : 0
             }
           ]

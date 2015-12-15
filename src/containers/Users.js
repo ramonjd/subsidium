@@ -31,7 +31,7 @@ class Users extends Component {
 
   constructor(props) {
     super(props)
-    this.handleDeleteUsers = this.handleDeleteUsers.bind(this)
+    this.handleDeleteUser = this.handleDeleteUser.bind(this)
     this.handleCreateUser  = this.handleCreateUser.bind(this)
   }
 
@@ -39,12 +39,12 @@ class Users extends Component {
       this.props.actions.getUsers()
   }
 
-  handleDeleteUsers(userIds){
-    this.props.actions.deleteUsers(this.props.users, userIds)
+  handleDeleteUser(userId){
+    this.props.actions.deleteUser(userId)
   }
 
   handleCreateUser(userData){
-    this.props.actions.createUser(this.props.users, userData)
+    this.props.actions.createUser(userData)
   }
 
   render () {
@@ -54,7 +54,7 @@ class Users extends Component {
       <section className="Users">
         <h1>Users</h1>
         <div className="leftCol">
-          <ItemListView items={ users } deleteItems={this.handleDeleteUsers} apiPath="users"/>
+          <ItemListView items={ users } deleteItem={this.handleDeleteUser} apiPath="users"/>
         </div>
         <div className="rightCol">
           <UserCreateEdit title="Create" onSubmit={ this.handleCreateUser } />

@@ -15,7 +15,7 @@ export default function users(currentState = initialState, action = {}) {
       return Immutable(action.data)
 
     case types.CREATE_USER:
-      return Immutable(currentState).concat([action.data])
+      return Immutable([action.data].concat(currentState).sort())
 
     case types.UPDATE_USER:
       return Immutable(currentState).map((obj, index) =>{
@@ -32,10 +32,10 @@ export default function users(currentState = initialState, action = {}) {
         }
       })
 
-    case types.DELETE_USERS:
-      return Immutable(currentState).filter((obj) => {
-        return action.ids.indexOf(obj._id) >= 0
-      })
+    case types.DELETE_USER:
+      return Immutable(currentState.filter((obj) => {
+        return action.id !== obj._id
+      }))
 
     default:
       return currentState

@@ -1,3 +1,7 @@
+if (process.env.BROWSER) {
+  require('../styles/FilterItems.scss')
+}
+
 import React, { Component, PropTypes } from 'react'
 import Button from './Button'
 

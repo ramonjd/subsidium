@@ -23,18 +23,16 @@ function fetchUserById(data) {
   }
 }
 
-function makeUser(state, data) {
+function makeUser(data) {
   return {
     type: types.CREATE_USER,
-    state,
     data
   }
 }
-function removeUsersById(state, ids) {
+function removeUserById(id) {
   return {
-    type: types.DELETE_USERS,
-    state,
-    ids
+    type: types.DELETE_USER,
+    id
   }
 }
 function editUser(id, data) {
@@ -51,7 +49,6 @@ function error(data) {
     data
   }
 }
-
 
 
 
@@ -74,11 +71,11 @@ export function getUserById(id) {
   }
 }
 
-export function createUser(state, data) {
+export function createUser(data) {
   return dispatch => {
     return request
       .post(urls.USERS_API_URL, data)
-      .then(res => dispatch(makeUser(state, res.data)))
+      .then(res => dispatch(makeUser(res.data)))
       .catch(err => dispatch(error(err)))
   }
 }
@@ -92,11 +89,11 @@ export function updateUser(userId, data) {
   }
 }
 
-export function deleteUsers(state, userIds) {
+export function deleteUser(id) {
   return dispatch => {
     return request
-      .delete(urls.USERS_API_URL, {ids : userIds})
-      .then(res => dispatch(removeUsersById(state, userIds)))
+      .delete(urls.USERS_API_URL + '/' + id)
+      .then(res => dispatch(removeUserById(id)))
       .catch(err => dispatch(error(err)))
   }
 }

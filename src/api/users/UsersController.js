@@ -1,6 +1,4 @@
 import User from './UserModel'
-import async from 'async'
-
 
 const UsersController  = {
 
@@ -39,23 +37,15 @@ const UsersController  = {
         }
     });
   },
-  deleteUsersById(req, res, next) {
-    async.parallel([
-        (callback) => {
-          User.remove({ id: { $in: req.body.ids } }, (err) => {
-            if (err) {
-              return callback('Error while deleting '  + err.message);
-            }
-            callback(null, 'Document deleted');
-          });
+  deleteUserById(req, res, next) {
+    User.
+      findByIdAndRemove(req.params.id, (err, user) => {
+        if (!err) {
+          res.json(200, user);
+        } else {
+          res.json(422, err);
+          console.log('Error UsersController:deleteUserById');
         }
-    ],
-    function(err, results){
-      if (!err) {
-        res.json(200);
-      } else {
-        res.json(422, err);
-      }
     });
   },
   createUser(req, res, next) {
