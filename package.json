@@ -50,7 +50,7 @@
     "core-decorators": "^0.9.1",
     "express": "^4.13.3",
     "flux": "^2.1.1",
-    "history": "^1.13.1",
+    "history": "~1.13.x",
     "jade": "^1.11.0",
     "jsdom": "^7.1.1",
     "mongoose": "^4.2.7",

@@ -77,14 +77,15 @@ export default function(callback) {
 
         function renderView(res) {
           console.log(res.data)
-          const InitialView = (
-            <DataWrapper data={ res.data }><RoutingContext {...renderProps} /></DataWrapper>
-          )
-          const componentHTML = renderToString(InitialView)
           const initialState = {
             users : res.data,
             tasks : []
           }
+          const InitialView = (
+            <DataWrapper data={ initialState }><RoutingContext {...renderProps} /></DataWrapper>
+          )
+          const componentHTML = renderToString(InitialView)
+
           return { content: componentHTML, initialState : JSON.stringify(initialState) }
         }
 

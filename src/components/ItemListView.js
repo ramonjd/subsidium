@@ -51,21 +51,27 @@ export default class ItemListView extends Component {
   render () {
     const { items, apiPath } = this.props
     const filteredItemsIdsLength = this.state.filteredItemsIds.length;
-
-    let itemsList = Immutable(items).asMutable().map((item, i) => {
-      if (filteredItemsIdsLength === 0 || (filteredItemsIdsLength > 0 && this.state.filteredItemsIds.indexOf(item._id) > -1)) {
-        return (
-          <li key={ i }>
-            <Link to={`/${apiPath}/${item._id}`}>{ item.name }</Link>
-          </li>)
-      }
-    })
+    //
+    // let itemsList = Immutable(items).asMutable().map((item, i) => {
+    //   if (filteredItemsIdsLength === 0 || (filteredItemsIdsLength > 0 && this.state.filteredItemsIds.indexOf(item._id) > -1)) {
+    //     return (
+    //       <li key={ i }>
+    //         <Link to={`/${apiPath}/${item._id}`}>{ item.name }</Link>
+    //       </li>)
+    //   }
+    // })
 
     return (
       <div className="ItemListView">
         { this.props.items && this.props.items.length > ui.MIN_ITEMS_BEFORE_FILTER ? <FilterItems handleChange={this.filterItems}/>  : null }
         <ul>
-          { itemsList }
+          { Immutable(items).asMutable().map((item, i) => {
+              return (
+                <li key={ i }>
+                  <Link to={`/${apiPath}/${item._id}`}>{ item.name }</Link>
+                </li>)
+
+          }) }
         </ul>
       </div>
       )
