@@ -24,8 +24,8 @@ export default class Users extends Component {
   }
 
   componentDidMount() {
-      usersActions.getUsers()
-      usersStore.addChangeListener(this.onGetUsers)
+    usersActions.getUsers()
+    usersStore.addChangeListener(this.onGetUsers)
   }
 
   componentWillUnmount() {
@@ -34,7 +34,7 @@ export default class Users extends Component {
 
   onGetUsers(data) {
     this.setState({
-        users: data
+      users: data
     })
   }
 
@@ -43,7 +43,7 @@ export default class Users extends Component {
   }
 
   handleCreateUser(userData){
-      usersActions.createUser(userData)
+    usersActions.createUser(userData)
   }
 
   render () {
