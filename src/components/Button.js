@@ -5,14 +5,16 @@ export default class Button extends Component {
       children: PropTypes.node,
       className : PropTypes.string,
       title : PropTypes.string,
-      onClick : PropTypes.func
+      onClick : PropTypes.func,
+      type : PropTypes.string
     }
     render() {
-        let newClassName = this.props.className || '';
-        let newTitle = this.props.title || '';
-
+        let newClassName = this.props.className || ''
+        let newTitle = this.props.title || ''
+        let type = this.props.type || 'button'
+        let onClick = this.props.onClick || (() => {})
         return (
-            <button className={newClassName} onClick={this.props.onClick} title={newTitle} ref="button">{this.props.children}</button>
-        );
+            <button type={type} className={newClassName} onClick={onClick} title={newTitle} ref="button">{this.props.children}</button>
+        )
     }
 }

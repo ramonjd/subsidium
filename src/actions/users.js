@@ -35,10 +35,9 @@ function removeUserById(id) {
     id
   }
 }
-function editUser(id, data) {
+function editUser(data) {
   return {
     type: types.UPDATE_USER,
-    id,
     data
   }
 }
@@ -84,7 +83,7 @@ export function updateUser(userId, data) {
   return dispatch => {
     return request
       .put(urls.USERS_API_URL, {id : userId, data : data})
-      .then(res => dispatch(editUser(userId, res.data)))
+      .then(res => dispatch(editUser(res.data)))
       .catch(err => dispatch(error(err)))
   }
 }

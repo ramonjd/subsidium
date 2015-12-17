@@ -16,8 +16,12 @@ body {
 
 html,
 body,
-#root {
+#content {
   height: 100%;
+}
+
+.App > section {
+  padding:0.5em;
 }
 
 a {
@@ -26,5 +30,4 @@ a {
 
 h1 {
   font-weight: 300;
-  text-align: center;
 }

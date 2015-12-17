@@ -6,7 +6,6 @@ if (process.env.BROWSER) {
 import React, { Component, PropTypes } from 'react'
 import Immutable from 'seamless-immutable'
 import { Link } from 'react-router'
-import Button from './Button'
 import FilterItems from './FilterItems'
 import {ui} from '../constants/'
 
@@ -21,7 +20,6 @@ export default class ItemListView extends Component {
 
   static propTypes = {
     items:  PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    deleteItem:  PropTypes.func.isRequired,
     apiPath:  PropTypes.string.isRequired
   }
 
@@ -29,7 +27,6 @@ export default class ItemListView extends Component {
    super(props)
    this.state = getInitialState()
    this.filterItems = this.filterItems.bind(this)
-   this.handleDelete = this.handleDelete.bind(this)
   }
 
   filterItems(filterTerm){
@@ -51,10 +48,6 @@ export default class ItemListView extends Component {
     }
   }
 
-  handleDelete(id, e) {
-    this.props.deleteItem(id)
-  }
-
   render () {
     const { items, apiPath } = this.props
     const filteredItemsIdsLength = this.state.filteredItemsIds.length;
@@ -64,7 +57,6 @@ export default class ItemListView extends Component {
         return (
           <li key={ i }>
             <Link to={`/${apiPath}/${item._id}`}>{ item.name }</Link>
-            <Button className="DeleteItemButton" title="Delete this item" onClick={this.handleDelete.bind(this, item._id)}>&#10006;</Button>
           </li>)
       }
     })

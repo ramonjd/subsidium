@@ -1,56 +1,96 @@
-//https://github.com/KyperTech/webpack-redux-react-starter/blob/master/app/components/Main.js
-// http://notjoshmiller.com/ajax-polling-in-react-with-redux/
-import React, { Component, PropTypes } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { userActions } from '../actions/'
+
+import React, { Component, PropTypes, contextTypes } from 'react'
+import usersActions from '../flux/actions/usersActions'
+import usersStore from '../flux/stores/usersStore'
 import Immutable from 'seamless-immutable'
+import UserCreateEdit from '../components/UserCreateEdit'
+import Button from '../components/Button'
+import Modal from '../components/Modal'
 
-class UserProfile extends Component {
+let getInitialState = () => {
+    return {
+        user : {},
+        showModal : false
+    }
+}
+
+export default class UserProfile extends Component {
 
 
-  static propTypes = {
-    users:  PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    actions : PropTypes.objectOf(React.PropTypes.func).isRequired
-   }
+  static contextTypes = {
+    location: PropTypes.object
+  }
 
-  constructor() {
-    super()
+  constructor(props, context) {
+    super(props, context)
+    console.log(this.props, this.context)
+    this.state = getInitialState()
+    this.handleUpdateUser = this.handleUpdateUser.bind(this)
+    this.handleDeleteUser = this.handleDeleteUser.bind(this)
+    this.onGetUser = this.onGetUser.bind(this)
+    this.onDeletedUser = this.onDeletedUser.bind(this)
+    this.onDeleteUser = this.onDeleteUser.bind(this)
+    this.onCancelDeleteUser = this.onCancelDeleteUser.bind(this)
   }
 
   componentWillMount() {
-      this.props.actions.getUsers()
+    usersActions.getUserById(this.props.params.id)
+    usersStore.addChangeListener(this.onGetUser)
+    usersStore.addDeleteListener(this.onDeletedUser)
+  }
+
+  componentWillUnmount() {
+    usersStore.removeChangeListener(this.onGetUser)
+    usersStore.removeDeleteListener(this.onDeletedUser)
+  }
+
+  onGetUser(data) {
+    console.log('onGetUser User profile: ',  data[0])
+    const user = data[0].asMutable()
+    this.setState({
+        user: user
+    })
+  }
+
+  onDeletedUser(data) {
+    const { params: { id }} = this.props
+    this.props.history.pushState(null, '/users')
+  }
+
+
+  handleUpdateUser(userData){
+    const { params: { id }} = this.props
+    usersActions.updateUser(id, userData)
+  }
+
+  handleDeleteUser(){
+    const { params: { id }} = this.props
+    usersActions.deleteUser(id)
+  }
+
+  onDeleteUser(){
+    this.setState({
+        showModal: true
+    })
+  }
+
+  onCancelDeleteUser(){
+    this.setState({
+        showModal: false
+    })
   }
 
   render () {
-    const { params: { id }, users} = this.props
-    let userProfile = Immutable(users).asMutable().map((user, i) => {
-      if (user._id === id) {
-        return (
-          <div className="" key={user._id}>
-            <h3>{ user.name } { user.email }</h3>
-          </div>
-        )
-      }
-    })
+    const { params: { id }} = this.props
 
     return (
-      <section className="UserProfile">
-        <h1>User Profile </h1>
-        {userProfile}
-     </section>
+      <div className="UserProfile">
+        <h1>{ this.state.user.name } - User Profile </h1>
+        { this.state.user._id === id ? <UserCreateEdit title="Edit" user={ this.state.user } onSubmit={ this.handleUpdateUser } /> : null }
+        <Button className="DeleteItemButton" title="Delete this user" onClick={this.onDeleteUser}>&#10006;</Button>
+        { this.state.showModal ? <Modal show={this.state.showModal}  cancelText="No" affirmText="Yes, delete" title="Are you sure you want to delete this user?" content={this.state.user.name} onAffirm={this.handleDeleteUser} onCancel={this.onCancelDeleteUser}  /> : null }
+     </div>
     )
   }
-}
-function mapStateToProps(state) {
-  return {
-    users: state.users,
-    router: state.router
-  }
-}
 
-function mapDispatchToProps(dispatch) {
-  return { actions : bindActionCreators(userActions, dispatch) }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)

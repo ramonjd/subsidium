@@ -2,18 +2,22 @@ if (process.env.BROWSER) {
   require('../styles/App.scss')
 }
 
-import React, { Component } from 'react'
-import { ReduxRouter } from 'redux-router'
-import routes from '../routes/'
+import React, { Component, PropTypes } from 'react'
+import { ui } from '../constants/'
+import Header from '../components/Header'
 
-class App extends Component {
+export default class  App extends Component {
+
+  static propTypes = {
+    children: PropTypes.node
+  }
+
   render() {
     return (
-      <ReduxRouter>
-        { routes }
-      </ReduxRouter>
+      <main className="App">
+        <Header navItems={ ui.NAV_ITEMS } />
+        <section>{this.props.children}</section>
+      </main>
     )
   }
 }
-
-export default App

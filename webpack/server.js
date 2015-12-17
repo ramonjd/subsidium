@@ -5,7 +5,7 @@ import webpack from 'webpack';
 import config from './dev.config';
 
 const host = process.env.HOST || 'localhost';
-const port = (process.env.PORT + 1) || 3001;
+const port = (process.env.PORT + 1) || 3333;
 
 const options = {
   contentBase: `http://${host}:${port}`,

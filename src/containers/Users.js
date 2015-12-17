@@ -1,78 +1,65 @@
-//https://github.com/KyperTech/webpack-redux-react-starter/blob/master/app/components/Main.js
-// http://notjoshmiller.com/ajax-polling-in-react-with-redux/
+if (process.env.BROWSER) {
+  require('../styles/Users.scss')
+}
 import React, { Component, PropTypes } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {userActions} from '../actions/'
+import usersActions from '../flux/actions/usersActions'
+import usersStore from '../flux/stores/usersStore'
 import ItemListView from '../components/ItemListView'
 import UserCreateEdit from '../components/UserCreateEdit'
 
-// function mapStateToProps(state) {
-//   console.log('statesss', state)
-//   return { users: state.users }
-// }
-//
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators(userActions, dispatch)
-// }
-//
-//
-// @connect(mapStateToProps, mapDispatchToProps)
 
+let getInitialState = () => {
+    return {
+        users : []
+    }
+}
 
+export default class Users extends Component {
 
-class Users extends Component {
-
-  static propTypes = {
-    users:  PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    actions : PropTypes.objectOf(React.PropTypes.func).isRequired
-   }
-
-
-  constructor(props) {
-    super(props)
-    this.handleDeleteUser = this.handleDeleteUser.bind(this)
+  constructor() {
+    super()
+    this.state = getInitialState()
+    this.onGetUsers  = this.onGetUsers.bind(this)
     this.handleCreateUser  = this.handleCreateUser.bind(this)
   }
 
-  componentWillMount() {
-      this.props.actions.getUsers()
+  componentDidMount() {
+      usersActions.getUsers()
+      usersStore.addChangeListener(this.onGetUsers)
   }
 
-  handleDeleteUser(userId){
-    this.props.actions.deleteUser(userId)
+  componentWillUnmount() {
+     usersStore.removeChangeListener(this.onGetUsers)
+  }
+
+  onGetUsers(data) {
+    this.setState({
+        users: data
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps)
   }
 
   handleCreateUser(userData){
-    this.props.actions.createUser(userData)
+      usersActions.createUser(userData)
   }
 
   render () {
-    const {users, actions} = this.props
-    console.log('users', users)
+
     return (
-      <section className="Users">
+      <div className="Users">
         <h1>Users</h1>
-        <div className="leftCol">
-          <ItemListView items={ users } deleteItem={this.handleDeleteUser} apiPath="users"/>
+        <div className="row">
+          <div className="col">
+            <UserCreateEdit title="Create" onSubmit={this.handleCreateUser}/>
+          </div>
+          <div className="col">
+            <ItemListView items={ this.state.users } apiPath="users"/>
+          </div>
         </div>
-        <div className="rightCol">
-          <UserCreateEdit title="Create" onSubmit={ this.handleCreateUser } />
-        </div>
-     </section>
+     </div>
     )
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    users: state.users,
-    router: state.router
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return { actions : bindActionCreators(userActions, dispatch) }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Users)

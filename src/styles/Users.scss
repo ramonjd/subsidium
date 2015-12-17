@@ -1,0 +1,67 @@
+/* Variables */
+$wrapper: 80rem;
+$gutter: 1rem;
+
+/* Row */
+@mixin row($inside: false) {
+  box-sizing: border-box;
+  @if($inside == true) {
+    margin-left: -$gutter/2;
+    margin-right: -$gutter/2;
+  }
+  @else {
+    width: 100%;
+    max-width: $wrapper;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &:before, &:after {
+    content: ‘’;
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+/* Column */
+@mixin col($width: 1, $padding: true) {
+  box-sizing: border-box;
+  float: left;
+  width: percentage($width);
+  @if($padding == true) {
+    padding-left: $gutter/2;
+    padding-right: $gutter/2;
+  }
+}
+
+/* Push column */
+@mixin push($width: 0) {
+  position: relative;
+  left: percentage($width);
+}
+
+/* Pull column */
+@mixin pull($width: 0) {
+  position: relative;
+  right: percentage($width);
+}
+
+@mixin mq($value) {
+  @media only screen and (min-width: $value) {
+    @content;
+  }
+}
+
+.row {
+  @include row;
+}
+.col {
+  @include col;
+  @include mq(600px) {
+    @include col(1/2);
+  }
+  @include mq(900px) {
+  //  @include col(1/4);
+  }
+}

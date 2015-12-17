@@ -5,9 +5,9 @@ const UsersController  = {
   all(req, res, next) {
     User.find({}).exec(function(err, users) {
       if (!err) {
-        res.json(users);
+        res.status(200).json(users)
       } else {
-        res.json(500, err);
+        res.status(500).json(err)
         console.log('Error UsersController:all');
       }
     });
@@ -18,7 +18,7 @@ const UsersController  = {
       if (!err) {
         res.json(user);
       } else {
-        res.json(500, err);
+        res.status(500).json(err)
         console.log('Error UsersController:getUserById');
       }
     });
@@ -26,11 +26,11 @@ const UsersController  = {
 
 
   updateUserById(req, res, next) {
-    var updateObject = req.body;
+
     User.
-      findByIdAndUpdate(req.body.id, updateObject, (err, user) => {
+      findByIdAndUpdate(req.body.id, req.body.data, {new : true}, (err, user) => {
         if (!err) {
-          res.json(user);
+          res.status(200).json(user)
         } else {
           res.json(422, err);
           console.log('Error UsersController:updateUserById');
@@ -41,9 +41,9 @@ const UsersController  = {
     User.
       findByIdAndRemove(req.params.id, (err, user) => {
         if (!err) {
-          res.json(200, user);
+          res.status(200).json(user)
         } else {
-          res.json(422, err);
+          res.status(422).json(err)
           console.log('Error UsersController:deleteUserById');
         }
     });
@@ -56,7 +56,7 @@ const UsersController  = {
 
     user.save((err) => {
       if (!err) {
-        res.json(201, user);
+        res.status(201).json(user)
       } else {
         console.log('Error UsersController:createUser');
         return next(err);
