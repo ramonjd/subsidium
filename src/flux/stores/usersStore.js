@@ -25,11 +25,6 @@ class UserStore extends EventEmitter {
       console.log('Store getUsers()')
       return request
         .get(urls.USERS_API_URL)
-        .then(res => this.emitChange(types.CHANGE_EVENT, usersReducer(this.getState(), {
-          type : types.GET_USERS,
-          data : res.data
-          })))
-        .catch(err => this.emitChange(types.ERROR_EVENT, err))
     }
 
     getUserById(id) {
@@ -117,6 +112,11 @@ usersStore.dispatchToken = AppDispatcher.register((action) => {
 
       case types.GET_USERS:
         usersStore.getUsers()
+          .then(res => usersStore.emitChange(types.CHANGE_EVENT, usersReducer(usersStore.getState(), {
+            type : types.GET_USERS,
+            data : res.data
+            })))
+          .catch(err => usersStore.emitChange(types.ERROR_EVENT, err))
         break
 
       case types.CREATE_USER:

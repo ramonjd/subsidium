@@ -8,8 +8,6 @@ import Button from './Button'
 
 //import {autobind} from 'core-decorators';
 
-
-
 let getInitialState = () => {
     return {
       editMode : false,
@@ -21,7 +19,6 @@ let getInitialState = () => {
     }
 }
 
-
 export default class UserCreateEdit extends Component {
 
   static propTypes = {
@@ -32,6 +29,7 @@ export default class UserCreateEdit extends Component {
 
   constructor(props) {
     super(props)
+    console.log('props', props)
     this.state = getInitialState()
     this.handleInputChange  = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)

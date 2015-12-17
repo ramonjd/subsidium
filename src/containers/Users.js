@@ -7,24 +7,34 @@ import usersStore from '../flux/stores/usersStore'
 import ItemListView from '../components/ItemListView'
 import UserCreateEdit from '../components/UserCreateEdit'
 
-
-let getInitialState = () => {
+let getInitialState = (state = []) => {
     return {
-        users : []
+        users : state || []
     }
 }
 
 export default class Users extends Component {
 
-  constructor() {
-    super()
+  static getState = () => {
+    return usersStore.getUsers()
+  }
+  static propTypes = {
+    state: PropTypes.object
+  }
+  // static contextTypes = {
+  //     data: React.PropTypes.object.isRequired
+  // }
+
+  constructor(props, context) {
+    super(props, context)
+    console.log(this.props)
     this.state = getInitialState()
     this.onGetUsers  = this.onGetUsers.bind(this)
     this.handleCreateUser  = this.handleCreateUser.bind(this)
   }
 
   componentDidMount() {
-    usersActions.getUsers()
+    //usersActions.getUsers()
     usersStore.addChangeListener(this.onGetUsers)
   }
 
@@ -47,7 +57,9 @@ export default class Users extends Component {
   }
 
   render () {
-
+//            <ItemListView items={ this.props.users } apiPath="users"/>
+    const { users } = this.props
+    console.log('users', users)
     return (
       <div className="Users">
         <h1>Users</h1>
@@ -56,7 +68,7 @@ export default class Users extends Component {
             <UserCreateEdit title="Create" onSubmit={this.handleCreateUser}/>
           </div>
           <div className="col">
-            <ItemListView items={ this.state.users } apiPath="users"/>
+          {users ? <ItemListView items={ users } apiPath="users"/> : null}
           </div>
         </div>
      </div>

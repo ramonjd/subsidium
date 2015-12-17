@@ -8,11 +8,15 @@ import compression from 'compression'
 import mongoose from 'mongoose'
 import api from './api/'
 import { renderToString } from 'react-dom/server'
+import React from 'react'
 import { RoutingContext, match } from 'react-router'
 import routes from './routes'
-import usersActions from './flux/actions/usersActions'
-import usersStore from './flux/stores/usersStore'
 import createLocation from 'history/lib/createLocation'
+import createMemoryHistory from 'history/lib/createMemoryHistory'
+
+// do this in routes
+import DataWrapper from './containers/DataWrapper'
+
 // import React from 'react'
 // import routes from '../routes/'
 //import mongoose from 'mongoose'
@@ -50,11 +54,9 @@ export default function(callback) {
 
 
     const location = createLocation(req.url)
+    const history = createMemoryHistory()
 
-    match({ routes, location }, (err, redirectLocation, renderProps) => {
-
-
-      //console.log('renderProps', renderToString(<RoutingContext {...renderProps} />))
+    match({ routes, location, history }, (err, redirectLocation, renderProps) => {
 
 
       if(err) {
@@ -67,11 +69,38 @@ export default function(callback) {
       if (!renderProps) {
         //return res.status(404).end('Not found')
       }
+
+      if (renderProps) {
+        //renderProps.history = history
+
+
+
+        function renderView(res) {
+          console.log(res.data)
+          const InitialView = (
+            <DataWrapper data={ res.data }><RoutingContext {...renderProps} /></DataWrapper>
+          )
+          const componentHTML = renderToString(InitialView)
+          const initialState = {
+            users : res.data,
+            tasks : []
+          }
+          return { content: componentHTML, initialState : JSON.stringify(initialState) }
+        }
+
+        // do this based on route (create function for this)
+        console.log(renderProps.components[1])
+
+        renderProps.components[1].getState()
+        .then(renderView)
+        .then(viewObject => res.status(200).render('index',  viewObject))
+        .catch(err => res.end(err.message))
+
+      }
+
     })
 
 
-    res.status(200)
-        .render('index',  {})
   })
 
 
