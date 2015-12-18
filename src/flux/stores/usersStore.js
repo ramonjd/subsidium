@@ -7,15 +7,6 @@ import request from 'axios'
 import usersReducer from '../reducers/usersReducer'
 
 let USERS = usersReducer()
-let sortArray = (a, b) => {
-  if (a.name.toLowerCase() < b.name.toLowerCase()) {
-    return -1
-  }
-  if(a.name.toLowerCase() > b.name.toLowerCase()) {
-    return 1
-  }
-  return 0
-}
 
 class UserStore extends EventEmitter {
     constructor(){
@@ -23,11 +14,11 @@ class UserStore extends EventEmitter {
     }
 
     getState(){
-        return USERS.sort(sortArray)
+        return USERS
     }
 
     setState(data){
-        USERS = data
+        USERS = usersReducer(data)
     }
 
     getUsers() {
@@ -36,39 +27,16 @@ class UserStore extends EventEmitter {
         .get(urls.USERS_API_URL)
     }
 
-    getUserById(id) {
-      console.log('Store getUserById()')
-      return request
-        .get(urls.USERS_API_URL + '/' + id)
-    }
-
     createUser(data) {
       console.log('Store createUser()')
       return request
         .post(urls.USERS_API_URL, data)
     }
-
-    updateUser(userId, data) {
-      console.log('Store updateUser()')
-      return request
-        .put(urls.USERS_API_URL, {id : userId, data : data})
-        .then(res => this.emitChange(types.CHANGE_EVENT, usersReducer(this.getState(), {
-          type : types.UPDATE_USER,
-          data : res.data
-          })))
-        .catch(err => this.emitChange(types.ERROR_EVENT, err))
-    }
-
     deleteUser(id) {
+      console.log('Store deleteUser()')
       return request
         .delete(urls.USERS_API_URL + '/' + id)
-        .then(res => this.emitChange(types.USER_DELETED_EVENT, usersReducer(this.getState(), {
-          type : types.DELETE_USER,
-          data : res.data
-          })))
-        .catch(err => this.emitChange(types.ERROR_EVENT, err))
     }
-
 
     emitChange(event, data = {}){
       this.setState(data)
@@ -82,7 +50,6 @@ class UserStore extends EventEmitter {
     removeChangeListener(callback) {
         this.removeListener(types.CHANGE_EVENT, callback)
     }
-
     addDeleteListener(callback){
         this.on(types.USER_DELETED_EVENT, callback)
     }
@@ -90,7 +57,6 @@ class UserStore extends EventEmitter {
     removeDeleteListener(callback) {
         this.removeListener(types.USER_DELETED_EVENT, callback)
     }
-
     addErrorListener(callback){
         this.on(types.ERROR_EVENT, callback)
     }
@@ -127,22 +93,14 @@ usersStore.dispatchToken = AppDispatcher.register((action) => {
           .catch(err => usersStore.emitChange(types.ERROR_EVENT, err))
         break
 
-      case types.GET_USER_BY_ID:
-        usersStore.getUserById(action.id)
-          .then(res => usersStore.emitChange(types.CHANGE_EVENT, usersReducer(usersStore.getState(), {
-            type : types.GET_USER_BY_ID,
+        case types.DELETE_USER:
+          usersStore.deleteUser(action.id)
+          .then(res => usersStore.emitChange(types.USER_DELETED_EVENT, usersReducer(usersStore.getState(), {
+            type : types.DELETE_USER,
             data : res.data
             })))
           .catch(err => usersStore.emitChange(types.ERROR_EVENT, err))
-        break
-
-      case types.UPDATE_USER:
-        usersStore.updateUser(action.id, action.data)
-        break
-
-      case types.DELETE_USER:
-        usersStore.deleteUser(action.id)
-        break
+          break
 
       default:
         break

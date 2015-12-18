@@ -5,7 +5,6 @@ if (process.env.BROWSER) {
 import React, { Component, PropTypes, cloneElement } from 'react'
 import { ui } from '../constants/'
 import Header from '../components/Header'
-import Immutable from 'seamless-immutable'
 
 export default class  App extends Component {
 
@@ -18,15 +17,16 @@ export default class  App extends Component {
 
   constructor(props, context) {
     super(props, context)
-    console.log('App props', this.props)
+    console.log('App context', this.context)
   }
 
   render() {
     const currentRoute = this.props.routes[this.props.routes.length - 1]
+    const props = Object.assign({}, this.props, this.context.data)
     return (
       <main className="App">
         <Header navItems={ ui.NAV_ITEMS } currentRoute={currentRoute}/>
-        <section>{this.props.children && cloneElement(this.props.children, Immutable(this.context.data))}</section>
+        <section>{this.props.children && cloneElement(this.props.children, props)}</section>
       </main>
     )
   }

@@ -1,7 +1,9 @@
 import usersStore from './usersStore'
+import userProfileStore from './userProfileStore'
 
 const stores  = {
-  users : usersStore
+  users : usersStore,
+  userprofile : userProfileStore
 }
 
 export default stores

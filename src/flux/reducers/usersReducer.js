@@ -35,6 +35,6 @@ export default function usersReducer(currentState = initialState, action = {}) {
       }))
 
     default:
-      return currentState
+      return Immutable([].concat(currentState).sort(sortArray))
   }
 }

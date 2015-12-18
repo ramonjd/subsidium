@@ -1,7 +1,7 @@
 
 import React, { Component, PropTypes, contextTypes } from 'react'
 import usersActions from '../flux/actions/usersActions'
-import usersStore from '../flux/stores/usersStore'
+import stores from '../flux/stores/'
 import Immutable from 'seamless-immutable'
 import UserCreateEdit from '../components/UserCreateEdit'
 import Button from '../components/Button'
@@ -9,7 +9,7 @@ import Modal from '../components/Modal'
 
 let getInitialState = () => {
     return {
-        user : {},
+        user : {  },
         showModal : false
     }
 }
@@ -17,7 +17,7 @@ let getInitialState = () => {
 export default class UserProfile extends Component {
 
   static getState = (params) => {
-    return usersStore.getUserById(params.id)
+    return stores.userprofile.getUserById(params.id)
   }
 
   static propTypes = {
@@ -37,35 +37,33 @@ export default class UserProfile extends Component {
     this.onDeletedUser = this.onDeletedUser.bind(this)
     this.onDeleteUser = this.onDeleteUser.bind(this)
     this.onCancelDeleteUser = this.onCancelDeleteUser.bind(this)
+    this.renderProfile = this.renderProfile.bind(this)
+
   }
 
   componentWillMount() {
     this.setState({
       user : this.props.userprofile
     })
-    //this.getState(this.props.params.id)
-    // usersStore.addChangeListener(this.onGetUser)
-    // usersStore.addDeleteListener(this.onDeletedUser)
+    stores.userprofile.addChangeListener(this.onGetUser)
+    stores.users.addDeleteListener(this.onDeletedUser)
   }
 
   componentWillUnmount() {
-    // usersStore.removeChangeListener(this.onGetUser)
-    // usersStore.removeDeleteListener(this.onDeletedUser)
+    stores.userprofile.removeChangeListener(this.onGetUser)
+    stores.users.removeDeleteListener(this.onDeletedUser)
   }
 
   onGetUser(data) {
-    console.log('onGetUser User profile: ',  data[0])
-    const user = data[0].asMutable()
+    const userprofile = data.asMutable()
     this.setState({
-        user: user
+        user: userprofile
     })
   }
 
   onDeletedUser(data) {
-    const { params: { id }} = this.props
-    this.props.history.pushState(null, '/users')
+    window.location.href = '/users'
   }
-
 
   handleUpdateUser(userData){
     const { params: { id }} = this.props
@@ -89,15 +87,30 @@ export default class UserProfile extends Component {
     })
   }
 
-  render () {
+  renderProfile(){
     const { params: { id } } = this.props
+    return (
+        <div>
+          <h1>{ this.state.user.name } - User Profile </h1>
+          { this.state.user._id === id ? <UserCreateEdit title="Edit" user={ this.state.user } onSubmit={ this.handleUpdateUser } /> : null }
+          <Button className="DeleteItemButton" title="Delete this user" onClick={this.onDeleteUser}>&#10006;</Button>
+          { this.state.showModal ? <Modal show={this.state.showModal}  cancelText="No" affirmText="Yes, delete" title="Are you sure you want to delete this user?" content={this.state.user.name} onAffirm={this.handleDeleteUser} onCancel={this.onCancelDeleteUser}  /> : null }
+        </div>
+    )
+  }
+
+  render () {
+
+
+    const noprofile = (
+      <div>
+        <p>Sorry, no profile found.</p>
+      </div>
+    )
 
     return (
       <div className="UserProfile">
-        <h1>{ this.state.user.name } - User Profile </h1>
-        { this.state.user._id === id ? <UserCreateEdit title="Edit" user={ this.state.user } onSubmit={ this.handleUpdateUser } /> : null }
-        <Button className="DeleteItemButton" title="Delete this user" onClick={this.onDeleteUser}>&#10006;</Button>
-        { this.state.showModal ? <Modal show={this.state.showModal}  cancelText="No" affirmText="Yes, delete" title="Are you sure you want to delete this user?" content={this.state.user.name} onAffirm={this.handleDeleteUser} onCancel={this.onCancelDeleteUser}  /> : null }
+        { this.props.userprofile ? this.renderProfile()  :  noprofile  }
      </div>
     )
   }

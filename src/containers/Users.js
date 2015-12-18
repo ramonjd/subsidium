@@ -3,7 +3,7 @@ if (process.env.BROWSER) {
 }
 import React, { Component, PropTypes } from 'react'
 import usersActions from '../flux/actions/usersActions'
-import usersStore from '../flux/stores/usersStore'
+import stores from '../flux/stores/'
 import ItemListView from '../components/ItemListView'
 import UserCreateEdit from '../components/UserCreateEdit'
 
@@ -17,7 +17,7 @@ let getInitialState = () => {
 export default class Users extends Component {
 
   static getState = () => {
-    return usersStore.getUsers()
+    return stores.users.getUsers()
   }
 
   static propTypes = {
@@ -36,12 +36,12 @@ export default class Users extends Component {
       users : this.props.users
     })
     //this.getState(this.props.params.id)
-     usersStore.addChangeListener(this.onCreatedUser)
+     stores.users.addChangeListener(this.onCreatedUser)
     // usersStore.addDeleteListener(this.onDeletedUser)
   }
 
   componentWillUnmount() {
-    usersStore.removeChangeListener(this.onCreatedUser)
+    stores.users.removeChangeListener(this.onCreatedUser)
     // usersStore.removeDeleteListener(this.onDeletedUser)
   }
 
