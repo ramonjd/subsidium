@@ -68,7 +68,7 @@ export default class ItemListView extends Component {
           { Immutable(items).asMutable().map((item, i) => {
               return (
                 <li key={ i }>
-                  <Link to={`/${apiPath}/${item._id}`}>{ item.name }</Link>
+                  <a href={`/${apiPath}/${item._id}`}>{ item.name }</a>
                 </li>)
 
           }) }

@@ -18,7 +18,7 @@ export default function usersReducer(currentState = initialState, action = {}) {
   switch(action.type) {
 
     case types.GET_USERS:
-      return Immutable(action.data.sort(sortArray))
+      return Immutable([action.data].concat([]).sort(sortArray))
 
     case types.CREATE_USER:
       return Immutable([action.data].concat(currentState).sort(sortArray))

@@ -4,22 +4,22 @@ if (process.env.BROWSER) {
 
 
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
 import { ui } from '../constants/'
 
 export default class Header extends Component {
     static propTypes = {
-      navItems : PropTypes.array
+      navItems : PropTypes.array,
+      currentRoute : PropTypes.object
     }
     render() {
         return (
           <header className="Header">
-            <span className="Logo"><Link to="/">subsidium</Link></span>
+            <span className="Logo"><a href="/">subsidium</a></span>
             <nav>
               <ul>
                 {this.props.navItems.map((item, i) =>
-                  <li  key={i + 1}>
-                    <Link to={item.pathname} activeStyle={ui.ACITVE_CLASS}>{item.text}</Link>
+                  <li  key={i + 1} className={this.props.currentRoute.path.indexOf(item.pathname) === 0 ? 'active' : ''}>
+                    <a href={item.pathname}>{item.text}</a>
                   </li>
                 )}
               </ul>

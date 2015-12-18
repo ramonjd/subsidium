@@ -7,6 +7,15 @@ import request from 'axios'
 import usersReducer from '../reducers/usersReducer'
 
 let USERS = usersReducer()
+let sortArray = (a, b) => {
+  if (a.name.toLowerCase() < b.name.toLowerCase()) {
+    return -1
+  }
+  if(a.name.toLowerCase() > b.name.toLowerCase()) {
+    return 1
+  }
+  return 0
+}
 
 class UserStore extends EventEmitter {
     constructor(){
@@ -14,7 +23,7 @@ class UserStore extends EventEmitter {
     }
 
     getState(){
-        return USERS
+        return USERS.sort(sortArray)
     }
 
     setState(data){
@@ -31,22 +40,12 @@ class UserStore extends EventEmitter {
       console.log('Store getUserById()')
       return request
         .get(urls.USERS_API_URL + '/' + id)
-        .then(res => this.emitChange(types.CHANGE_EVENT, usersReducer(this.getState(), {
-          type : types.GET_USER_BY_ID,
-          data : res.data
-          })))
-        .catch(err => this.emitChange(types.ERROR_EVENT, err))
     }
 
     createUser(data) {
       console.log('Store createUser()')
       return request
         .post(urls.USERS_API_URL, data)
-        .then(res => this.emitChange(types.CHANGE_EVENT, usersReducer(this.getState(), {
-          type : types.CREATE_USER,
-          data : res.data
-          })))
-        .catch(err => this.emitChange(types.ERROR_EVENT, err))
     }
 
     updateUser(userId, data) {
@@ -121,10 +120,20 @@ usersStore.dispatchToken = AppDispatcher.register((action) => {
 
       case types.CREATE_USER:
         usersStore.createUser(action.data)
+          .then(res => usersStore.emitChange(types.CHANGE_EVENT, usersReducer(usersStore.getState(), {
+            type : types.CREATE_USER,
+            data : res.data
+            })))
+          .catch(err => usersStore.emitChange(types.ERROR_EVENT, err))
         break
 
       case types.GET_USER_BY_ID:
         usersStore.getUserById(action.id)
+          .then(res => usersStore.emitChange(types.CHANGE_EVENT, usersReducer(usersStore.getState(), {
+            type : types.GET_USER_BY_ID,
+            data : res.data
+            })))
+          .catch(err => usersStore.emitChange(types.ERROR_EVENT, err))
         break
 
       case types.UPDATE_USER:

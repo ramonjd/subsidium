@@ -7,6 +7,13 @@ import usersStore from '../flux/stores/usersStore'
 import ItemListView from '../components/ItemListView'
 import UserCreateEdit from '../components/UserCreateEdit'
 
+
+let getInitialState = () => {
+    return {
+        users : []
+    }
+}
+
 export default class Users extends Component {
 
   static getState = () => {
@@ -14,20 +21,43 @@ export default class Users extends Component {
   }
 
   static propTypes = {
-    users:  PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    users:  PropTypes.arrayOf(PropTypes.object)
   }
 
   constructor(props, context) {
     super(props, context)
+    this.state = getInitialState()
     this.handleCreateUser  = this.handleCreateUser.bind(this)
+    this.onCreatedUser  = this.onCreatedUser.bind(this)
+  }
+
+  componentWillMount() {
+    this.setState({
+      users : this.props.users
+    })
+    //this.getState(this.props.params.id)
+     usersStore.addChangeListener(this.onCreatedUser)
+    // usersStore.addDeleteListener(this.onDeletedUser)
+  }
+
+  componentWillUnmount() {
+    usersStore.removeChangeListener(this.onCreatedUser)
+    // usersStore.removeDeleteListener(this.onDeletedUser)
   }
 
   handleCreateUser(userData){
     usersActions.createUser(userData)
   }
 
+  onCreatedUser(userData){
+    console.log('onCreatedUser',userData )
+    this.setState({
+      users : userData
+    })
+  }
+
   render () {
-    const { users } = this.props
+    const { users } = this.state
     return (
       <div className="Users">
         <h1>Users</h1>

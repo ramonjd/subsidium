@@ -7,30 +7,18 @@ import UserProfile from './containers/UserProfile'
 import Tasks from './containers/Tasks'
 import DataWrapper from './containers/DataWrapper'
 
+export const routes = (
+  <Route path='/' component={App}>
+    <Route path='/dashboard' component={Dashboard} />
+    <Route path='/users' component={Users} />
+    <Route path='/users/:id' component={UserProfile} />
+  </Route>
+)
 
-
-// https://ponyfoo.com/articles/universal-routing-react-es6
-// https://github.com/rackt/react-router/blob/latest/docs/Introduction.md
-
-let routes
-//           <Redirect from='/' to='dashboard' />
-
-if (process.env.BROWSER) {
-  routes = (
-          <Route path='/' component={App}>
-            <Route path='dashboard' component={Dashboard} />
-            <Route path='users' component={Users} />
-            <Route path='users/:id' component={UserProfile} />
-          </Route>
-  )
-} else {
-  routes = (
-      <Route path='/' component={App}>
-        <Route path='dashboard' component={Dashboard} />
-        <Route path='users' component={Users} />
-        <Route path='users/:id' component={UserProfile} />
-      </Route>
-  )
+export function buildRouter(initialState, renderProps){
+  if (process.env.BROWSER) {
+    return (<DataWrapper data={ initialState }><Router {...renderProps}>{ routes }</Router></DataWrapper>)
+  } else {
+    return (<DataWrapper data={ initialState }><RoutingContext {...renderProps} /></DataWrapper>)
+  }
 }
-
-export default routes

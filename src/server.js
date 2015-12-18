@@ -7,15 +7,13 @@ import morgan from 'morgan'
 import compression from 'compression'
 import mongoose from 'mongoose'
 import api from './api/'
-import { renderToString } from 'react-dom/server'
 import React from 'react'
 import { RoutingContext, match } from 'react-router'
-import routes from './routes'
 import createLocation from 'history/lib/createLocation'
 import createMemoryHistory from 'history/lib/createMemoryHistory'
+import { routes } from './routes'
+import { renderComponentState } from './state/applicationState'
 
-// do this in routes
-import DataWrapper from './containers/DataWrapper'
 
 // import React from 'react'
 // import routes from '../routes/'
@@ -50,7 +48,7 @@ export default function(callback) {
   server.use(compression())
 
   api(server)
-  server.get('/*', (req, res) => {
+  server.use((req, res) => {
 
 
     const location = createLocation(req.url)
@@ -69,34 +67,10 @@ export default function(callback) {
       if (!renderProps) {
         //return res.status(404).end('Not found')
       }
-
       if (renderProps) {
-        //renderProps.history = history
-
-
-
-        function renderView(res) {
-          console.log(res.data)
-          const initialState = {
-            users : res.data,
-            tasks : []
-          }
-          const InitialView = (
-            <DataWrapper data={ initialState }><RoutingContext {...renderProps} /></DataWrapper>
-          )
-          const componentHTML = renderToString(InitialView)
-
-          return { content: componentHTML, initialState : JSON.stringify(initialState) }
-        }
-
-        // do this based on route (create function for this)
-        console.log(renderProps.components[1])
-
-        renderProps.components[1].getState()
-        .then(renderView)
+        renderComponentState(renderProps.params || {}, renderProps)
         .then(viewObject => res.status(200).render('index',  viewObject))
         .catch(err => res.end(err.message))
-
       }
 
     })

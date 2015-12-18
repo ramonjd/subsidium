@@ -16,6 +16,13 @@ let getInitialState = () => {
 
 export default class UserProfile extends Component {
 
+  static getState = (params) => {
+    return usersStore.getUserById(params.id)
+  }
+
+  static propTypes = {
+    userprofile:  PropTypes.object
+  }
 
   static contextTypes = {
     location: PropTypes.object
@@ -23,7 +30,6 @@ export default class UserProfile extends Component {
 
   constructor(props, context) {
     super(props, context)
-    console.log(this.props, this.context)
     this.state = getInitialState()
     this.handleUpdateUser = this.handleUpdateUser.bind(this)
     this.handleDeleteUser = this.handleDeleteUser.bind(this)
@@ -34,14 +40,17 @@ export default class UserProfile extends Component {
   }
 
   componentWillMount() {
-    usersActions.getUserById(this.props.params.id)
-    usersStore.addChangeListener(this.onGetUser)
-    usersStore.addDeleteListener(this.onDeletedUser)
+    this.setState({
+      user : this.props.userprofile
+    })
+    //this.getState(this.props.params.id)
+    // usersStore.addChangeListener(this.onGetUser)
+    // usersStore.addDeleteListener(this.onDeletedUser)
   }
 
   componentWillUnmount() {
-    usersStore.removeChangeListener(this.onGetUser)
-    usersStore.removeDeleteListener(this.onDeletedUser)
+    // usersStore.removeChangeListener(this.onGetUser)
+    // usersStore.removeDeleteListener(this.onDeletedUser)
   }
 
   onGetUser(data) {
@@ -81,7 +90,7 @@ export default class UserProfile extends Component {
   }
 
   render () {
-    const { params: { id }} = this.props
+    const { params: { id } } = this.props
 
     return (
       <div className="UserProfile">

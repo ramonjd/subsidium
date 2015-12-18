@@ -18,13 +18,14 @@ export default class  App extends Component {
 
   constructor(props, context) {
     super(props, context)
-    console.log('context.data', context.data)
+    console.log('App props', this.props)
   }
 
   render() {
+    const currentRoute = this.props.routes[this.props.routes.length - 1]
     return (
       <main className="App">
-        <Header navItems={ ui.NAV_ITEMS } />
+        <Header navItems={ ui.NAV_ITEMS } currentRoute={currentRoute}/>
         <section>{this.props.children && cloneElement(this.props.children, Immutable(this.context.data))}</section>
       </main>
     )
